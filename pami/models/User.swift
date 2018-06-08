@@ -29,6 +29,11 @@ struct User {
     phoneNumber = "",
     socialSecurityNumber = 0,
     companyName = ""
+    
+//    init(firstNam:String, lastNam:String) {
+//        self.firstName = firstNam
+//        self.lastName = lastNam
+//    }
 }
 
 struct Salary{

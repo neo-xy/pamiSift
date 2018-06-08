@@ -42,15 +42,14 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
-    @IBAction func onLoginBtnClicked(_ sender: Any) {
+    @IBAction func onClick(_ sender: Any) {
         
         if let e = emailField.text,let p = passwordField.text{
             Auth.auth().signIn(withEmail:e,password:p){(user,error) in
                 if(user != nil){
                     FirebaseController.setUpUser().subscribe{ isSetUp in
                         if isSetUp.element! {
-                            self.performSegue(withIdentifier: "loginSegue", sender: self)
+                            self.performSegue(withIdentifier: "nana", sender: self)
                         }
                         
                     }
