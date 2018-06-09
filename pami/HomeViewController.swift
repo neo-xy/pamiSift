@@ -14,9 +14,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var infoMessageFrame: UIView!
     @IBOutlet weak var infoMessageDate: UILabel!
     @IBOutlet weak var infoMessageText: UILabel!
-    @IBOutlet weak var shiftMark: UIView!
+
     
     var shifts = [Shift]()
+    var upcommingShifts:[Shift] = []
+    let now = Date()
     
     @IBOutlet weak var upcommingShiftsTableView: UpcommingShifts!
     var df = DateFormatter()
@@ -25,14 +27,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         infoMessageFrame.layer.cornerRadius = 5
         
-        
-        //        self.upcommingShiftsTableView.register(UpcommmingShiftRowTableViewCell.self, forCellReuseIdentifier: "cell")
         upcommingShiftsTableView.delegate = self
         upcommingShiftsTableView.dataSource = self
         
         df.locale = Locale(identifier: "sv")
         
-        FirebaseController.getInfoMessage().subscribe { (event) in
+        _ = FirebaseController.getInfoMessage().subscribe { (event) in
             let author = event.element?.author
             let msg = event.element?.message
             let date = event.element?.date
@@ -44,8 +44,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.infoMessageAuthor.text = author
         }
         
-        FirebaseController.getUserShifts().subscribe { (event) in
-            self.shifts =  event.element!
+       _ = FirebaseController.getUserShifts().subscribe { (event) in
+            self.shifts = event.element!
+        
+        self.shifts = self.shifts.filter({ (a) -> Bool in
+            return a.startDate > self.now
+        })
+        self.shifts.sort(by: { (a, b) -> Bool in
+            return a.startDate < b.startDate
+        })
             self.upcommingShiftsTableView.reloadData()
         }
     }

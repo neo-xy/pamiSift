@@ -11,9 +11,9 @@ import Foundation
 
 struct Shift{
     var OBhours:Double = 0.0,
-    OBmoney = 0.0,
+    OBmoney = 0,
     OBnattHours = 0.0,
-    OBnattMoney = 0.0,
+    OBnattMoney = 0,
     basePay = 0,
     brutto = 0,
     department = Department(),

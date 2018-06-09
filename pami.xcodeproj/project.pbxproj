@@ -21,6 +21,7 @@
 		E555F91320C0201100C89FAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E555F91120C0201100C89FAD /* Main.storyboard */; settings = {ASSET_TAGS = (87, ); }; };
 		E555F91820C0201200C89FAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E555F91620C0201200C89FAD /* LaunchScreen.storyboard */; };
 		E555F92020C02BB800C89FAD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E555F91F20C02BB800C89FAD /* GoogleService-Info.plist */; };
+		E5B6721B20CB2E6900744157 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B6721A20CB2E6900744157 /* MyInfoViewController.swift */; };
 		E5D4937D20C9905900AFCACB /* UpcommingShifts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4937C20C9905900AFCACB /* UpcommingShifts.swift */; };
 		E5D4937F20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4937E20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift */; };
 		E5D883DD20C4548F00492677 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D883DC20C4548F00492677 /* User.swift */; };
@@ -45,6 +46,7 @@
 		E555F91720C0201200C89FAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E555F91920C0201200C89FAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E555F91F20C02BB800C89FAD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E5B6721A20CB2E6900744157 /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
 		E5D4937C20C9905900AFCACB /* UpcommingShifts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcommingShifts.swift; sourceTree = "<group>"; };
 		E5D4937E20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcommmingShiftRowTableViewCell.swift; sourceTree = "<group>"; };
 		E5D883DC20C4548F00492677 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				E5360E2E20C40B3E00E5EFDD /* FirebaseController.swift */,
 				E5037BED20C7FC2300D6763D /* CustomTabBarController.swift */,
 				E5037BEF20C8337B00D6763D /* HomeViewController.swift */,
+				E5B6721A20CB2E6900744157 /* MyInfoViewController.swift */,
 			);
 			path = pami;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				E5360E2F20C40B3E00E5EFDD /* FirebaseController.swift in Sources */,
 				E5D4937F20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift in Sources */,
 				E51B915D20C7126E00271801 /* Company.swift in Sources */,
+				E5B6721B20CB2E6900744157 /* MyInfoViewController.swift in Sources */,
 				E5360E0920C2EF3900E5EFDD /* MainController.swift in Sources */,
 				E555F91020C0201100C89FAD /* ViewController.swift in Sources */,
 				E526E33E20C8663F007EF258 /* Shift.swift in Sources */,

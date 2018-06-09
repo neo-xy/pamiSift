@@ -33,6 +33,12 @@ class FirebaseController{
                 user.imgUrl = snapshot?.get("imgUrl") as! String
                 user.companyName = snapshot?.get("companyName") as! String
                 user.companyId = snapshot?.get("companyId") as! String
+                user.address = snapshot?.get("address") as! String
+                user.phoneNumber = snapshot?.get("phoneNumber") as! String
+                user.accountNr = snapshot?.get("accountNr") as! String
+                user.bankName = snapshot?.get("bankName") as! String
+                user.socialSecurityNumber = snapshot?.get("socialSecurityNumber") as! Int
+                user.email = snapshot?.get("email") as! String
                 user.employeeId = id!
                 
                 sub.onNext(true)
@@ -74,9 +80,9 @@ class FirebaseController{
                     shift.firstName = snap.data()["firstName"] as! String
                     shift.lastName = snap.get("lastName") as! String
                     shift.OBhours = snap.get("OBhours") as! Double
-                    shift.OBmoney = snap.get("OBmoney") as! Double
+                    shift.OBmoney = snap.get("OBmoney") as! Int
                     shift.OBnattHours = snap.get("OBnattHours") as! Double
-                    shift.OBnattMoney = snap.get("OBnattMoney") as! Double
+                    shift.OBnattMoney = snap.get("OBnattMoney") as! Int
                     shift.basePay = snap.get("basePay") as! Int
                     shift.brutto = snap.get("brutto") as! Int
                     shift.duration = snap.get("duration") as! Double
@@ -101,6 +107,49 @@ class FirebaseController{
             })
             return Disposables.create()
         })
+    }
+    
+    static func getAcceptedShifts() -> Observable<[Shift]>{
+      return  Observable.create { (sub) -> Disposable in
+            Firestore.firestore().collection("users").document(user.employeeId).collection("acceptedShifts").addSnapshotListener({ (snapshot, error) in
+            
+                var shifts:[Shift] = []
+                print("ggg \(snapshot?.documents.count)")
+                
+                for snap:QueryDocumentSnapshot in snapshot!.documents{
+                    var shift = Shift()
+                    
+                    shift.firstName = (snap.data()["firstName"] ?? "") as! String
+                    shift.lastName = (snap.get("lastName") ?? "") as! String
+                    shift.OBhours = snap.get("OBhours") as! Double
+                    shift.OBmoney = snap.get("OBmoney") as! Int
+                    shift.OBnattHours = snap.get("OBnattHours") as! Double
+                    shift.OBnattMoney = snap.get("OBnattMoney") as! Int
+                    shift.basePay = snap.get("basePay") as! Int
+                    shift.brutto = snap.get("brutto") as! Int
+                    shift.duration = snap.get("duration") as! Double
+                    shift.employeeId = snap.get("employeeId") as! String
+                    shift.employeeSalary = snap.get("employeeSalary") as! Int
+                    shift.employmentType =  (snap.get("employmentType") ?? "" )as! String
+                    shift.endDate = (snap.get("endDate") as! Timestamp).dateValue()
+                    shift.startDate = (snap.get("startDate") as! Timestamp).dateValue()
+                    shift.holidayCompensation = snap.get("holidayCompensation") as! Int
+                    shift.message = snap.get("message") as! String
+                    shift.netto = snap.get("netto") as! Int
+                    shift.shiftStatus = snap.get("shiftStatus") as! String
+                    shift.shiftId =  snap.documentID as! String
+                    var department = Department()
+                    department.color = ((snap.data()["department"] as!  NSMutableDictionary).value(forKey: "color")) as! String
+                    department.id = ((snap.data()["department"] as!  NSMutableDictionary).value(forKey: "id")) as! String
+                    
+                    shift.department = department
+                    shifts.append(shift)
+                }
+                sub.onNext(shifts)
+            })
+            return Disposables.create()
+        }
+       
     }
     
 }
