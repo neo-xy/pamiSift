@@ -15,6 +15,7 @@ import RxSwift
 class FirebaseController{
     
     static var user = User()
+    static var employees:[User] = []
     
     static func setUpUser() -> Observable<Bool>{
         
@@ -40,6 +41,8 @@ class FirebaseController{
                 user.socialSecurityNumber = snapshot?.get("socialSecurityNumber") as! Int
                 user.email = snapshot?.get("email") as! String
                 user.employeeId = id!
+                
+                self.getEmployees()
                 
                 sub.onNext(true)
             })
@@ -95,7 +98,7 @@ class FirebaseController{
                     shift.message = snap.get("message") as! String
                     shift.netto = snap.get("netto") as! Int
                     shift.shiftStatus = snap.get("shiftStatus") as! String
-                    shift.shiftId =  snap.documentID as! String
+                    shift.shiftId =  snap.documentID
                     var department = Department()
                     department.color = ((snap.data()["department"] as!  NSMutableDictionary).value(forKey: "color")) as! String
                     department.id = ((snap.data()["department"] as!  NSMutableDictionary).value(forKey: "id")) as! String
@@ -110,11 +113,10 @@ class FirebaseController{
     }
     
     static func getAcceptedShifts() -> Observable<[Shift]>{
-      return  Observable.create { (sub) -> Disposable in
+        return  Observable.create { (sub) -> Disposable in
             Firestore.firestore().collection("users").document(user.employeeId).collection("acceptedShifts").addSnapshotListener({ (snapshot, error) in
-            
+                
                 var shifts:[Shift] = []
-                print("ggg \(snapshot?.documents.count)")
                 
                 for snap:QueryDocumentSnapshot in snapshot!.documents{
                     var shift = Shift()
@@ -149,7 +151,22 @@ class FirebaseController{
             })
             return Disposables.create()
         }
-       
+        
+    }
+    
+    static func getEmployees() {
+         Firestore.firestore().collection("companies").document(self.user.companyId).collection("employees").addSnapshotListener({ (snapshots, error) in
+            
+            for snapshot:QueryDocumentSnapshot in snapshots!.documents{
+                var user = User()
+                user.firstName = snapshot.get("firstName") as! String
+                user.lastName = snapshot.get("lastName") as! String
+                user.phoneNumber = snapshot.get("phoneNumber") as! String
+                user.email = snapshot.get("email") as! String
+                user.role = snapshot.get("role") as! String
+                employees.append(user)
+            }
+        })
     }
     
 }

@@ -29,7 +29,7 @@ class MyInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.isNavigationBarHidden = true
         
         user = FirebaseController.user;
         let imgUrl =  user.imgUrl
