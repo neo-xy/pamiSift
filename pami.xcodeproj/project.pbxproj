@@ -23,6 +23,8 @@
 		E555F92020C02BB800C89FAD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E555F91F20C02BB800C89FAD /* GoogleService-Info.plist */; };
 		E5709A6F20CC0A5E00C4766D /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A6E20CC0A5E00C4766D /* ContactsViewController.swift */; };
 		E5709A7120CC0E0D00C4766D /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A7020CC0E0D00C4766D /* ContactTableViewCell.swift */; };
+		E5709A7320CE960A00C4766D /* SalariesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A7220CE960A00C4766D /* SalariesViewController.swift */; };
+		E5709A7520CEA31700C4766D /* salaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A7420CEA31700C4766D /* salaryTableViewCell.swift */; };
 		E5B6721B20CB2E6900744157 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B6721A20CB2E6900744157 /* MyInfoViewController.swift */; };
 		E5D4937D20C9905900AFCACB /* UpcommingShifts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4937C20C9905900AFCACB /* UpcommingShifts.swift */; };
 		E5D4937F20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4937E20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift */; };
@@ -50,6 +52,8 @@
 		E555F91F20C02BB800C89FAD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E5709A6E20CC0A5E00C4766D /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		E5709A7020CC0E0D00C4766D /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
+		E5709A7220CE960A00C4766D /* SalariesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalariesViewController.swift; sourceTree = "<group>"; };
+		E5709A7420CEA31700C4766D /* salaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = salaryTableViewCell.swift; sourceTree = "<group>"; };
 		E5B6721A20CB2E6900744157 /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
 		E5D4937C20C9905900AFCACB /* UpcommingShifts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcommingShifts.swift; sourceTree = "<group>"; };
 		E5D4937E20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcommmingShiftRowTableViewCell.swift; sourceTree = "<group>"; };
@@ -134,6 +138,8 @@
 				E5B6721A20CB2E6900744157 /* MyInfoViewController.swift */,
 				E5709A6E20CC0A5E00C4766D /* ContactsViewController.swift */,
 				E5709A7020CC0E0D00C4766D /* ContactTableViewCell.swift */,
+				E5709A7220CE960A00C4766D /* SalariesViewController.swift */,
+				E5709A7420CEA31700C4766D /* salaryTableViewCell.swift */,
 			);
 			path = pami;
 			sourceTree = "<group>";
@@ -279,6 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5709A7520CEA31700C4766D /* salaryTableViewCell.swift in Sources */,
 				E5360E2F20C40B3E00E5EFDD /* FirebaseController.swift in Sources */,
 				E5709A6F20CC0A5E00C4766D /* ContactsViewController.swift in Sources */,
 				E5D4937F20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift in Sources */,
@@ -289,6 +296,7 @@
 				E555F91020C0201100C89FAD /* ViewController.swift in Sources */,
 				E526E33E20C8663F007EF258 /* Shift.swift in Sources */,
 				E555F90E20C0201100C89FAD /* AppDelegate.swift in Sources */,
+				E5709A7320CE960A00C4766D /* SalariesViewController.swift in Sources */,
 				E5037BF020C8337B00D6763D /* HomeViewController.swift in Sources */,
 				E5D4937D20C9905900AFCACB /* UpcommingShifts.swift in Sources */,
 				E51B915B20C6F76500271801 /* InfoMessage.swift in Sources */,

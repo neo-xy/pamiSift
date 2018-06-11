@@ -52,6 +52,7 @@ class ContactsViewController: UIViewController,UITableViewDelegate, UITableViewD
             cel.phoneLabel.textColor = UIColor.white
             cel.emailLabel.textColor = UIColor.white
         
+        
             
         }else{
             cel.contactRect.layer.backgroundColor = UIColor.white.cgColor
