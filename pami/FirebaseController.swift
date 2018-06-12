@@ -225,9 +225,9 @@ class FirebaseController{
                     interest.interestId = snapshot.documentID
                     
                     interests.append(interest)
-                  
+                    
                 }
-                  obs.onNext(interests)
+                obs.onNext(interests)
                 print("eee \(interests.count)")
             })
             return Disposables.create()
@@ -236,12 +236,58 @@ class FirebaseController{
     
     static func addInterest(interest:[String:Any]){
         Firestore.firestore().collection("companies").document(user.companyId).collection("interests").addDocument(data: interest) { (error) in
-            print(error)
+            
         }
     }
     
     static func removeInterest(id:String){
         Firestore.firestore().collection("companies").document(user.companyId).collection("interests").document(id).delete()
+    }
+    
+    static func getActiveShifts() -> Observable<[ClockedShift]>{
+        return Observable.create { (sub) -> Disposable in
+            Firestore.firestore().collection("companies").document(user.companyId)
+                .collection("activeShifts").addSnapshotListener({ (snapshots, error) in
+                    
+                    var activeShifts:[ClockedShift] = []
+                    for snapshot in (snapshots?.documents)!{
+                        var clockShift = ClockedShift()
+                        clockShift.clockedShiftId = snapshot.documentID
+                        print(snapshot.documentID)
+                        clockShift.employeeId =  snapshot.get("employeeId") as! String
+                        clockShift.firstName = snapshot.get("firstName") as! String
+                        clockShift.lastName = snapshot.get("lastName") as! String
+                        clockShift.timeStempIn = snapshot.get("timeStempIn") as! CLong
+                        clockShift.messageIn = snapshot.get("messageIn") as!String
+                        
+                        activeShifts.append(clockShift)
+                    }
+                    sub.onNext(activeShifts)
+                    
+                })
+            return Disposables.create()
+        }
+    }
+    static func clockOutShift(clockShift:ClockedShift){
+        print("clockoutshift \(clockShift.clockedShiftId)")
+        Firestore.firestore().collection("companies").document(user.companyId).collection("activeShifts").document(clockShift.clockedShiftId).delete { (error) in
+            if(error == nil){
+                  addToShiftToAccept(shift: clockShift)
+            }
+        }
+    }
+    
+    static func clockInShift(clockInShift:ClockedShift){
+        let doc:[String : Any] = ["employeeId":clockInShift.employeeId, "firstName":clockInShift.firstName, "lastName":clockInShift.lastName, "messageIn":clockInShift.messageIn, "timeStempIn":clockInShift.timeStempIn]
+        
+        print("rr \(doc)")
+        Firestore.firestore().collection("companies").document(user.companyId)
+            .collection("activeShifts").addDocument(data: doc)
+    }
+    
+    static func addToShiftToAccept(shift:ClockedShift){
+        let doc:[String:Any] = ["employeeId":user.employeeId, "firstName":shift.firstName, "lastName":shift.lastName, "messageIn":shift.messageIn, "messageOut":shift.messageOut, "timeStempIn":shift.timeStempIn, "timeStempOut":shift.timeStempOut]
+        Firestore.firestore().collection("companies").document(user.companyId).collection("shiftsToAccept").addDocument(data: doc)
     }
     
 }

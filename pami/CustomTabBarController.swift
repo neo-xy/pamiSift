@@ -28,7 +28,12 @@ class CustomTabBarController: UITabBarController {
         
         FirebaseController.getShiftsToTake().subscribe { (event) in
             self.shiftsToTake = event.element!
-            (self.tabBar.items![3] as UITabBarItem).badgeValue = String(self.shiftsToTake.count)
+            if(self.shiftsToTake.count < 1){
+                (self.tabBar.items![3] as UITabBarItem).badgeValue = nil
+            }else{
+                (self.tabBar.items![3] as UITabBarItem).badgeValue = String(self.shiftsToTake.count)
+            }
+            
         }
         
         // Do any additional setup after loading the view.

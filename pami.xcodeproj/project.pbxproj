@@ -29,6 +29,9 @@
 		E5709A7B20CEF1E100C4766D /* ShiftToTake.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A7A20CEF1E100C4766D /* ShiftToTake.swift */; };
 		E5709A7D20CEFD7500C4766D /* InterestsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A7C20CEFD7500C4766D /* InterestsTableViewCell.swift */; };
 		E5709A7F20CF0AD200C4766D /* Interests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A7E20CF0AD200C4766D /* Interests.swift */; };
+		E5709A8120CFDD5500C4766D /* ClockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A8020CFDD5500C4766D /* ClockViewController.swift */; };
+		E5709A8320CFF09E00C4766D /* ClockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A8220CFF09E00C4766D /* ClockTableViewCell.swift */; };
+		E5709A8520CFF38E00C4766D /* ClockedShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A8420CFF38E00C4766D /* ClockedShift.swift */; };
 		E5B6721B20CB2E6900744157 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B6721A20CB2E6900744157 /* MyInfoViewController.swift */; };
 		E5D4937D20C9905900AFCACB /* UpcommingShifts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4937C20C9905900AFCACB /* UpcommingShifts.swift */; };
 		E5D4937F20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4937E20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift */; };
@@ -62,6 +65,9 @@
 		E5709A7A20CEF1E100C4766D /* ShiftToTake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftToTake.swift; sourceTree = "<group>"; };
 		E5709A7C20CEFD7500C4766D /* InterestsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsTableViewCell.swift; sourceTree = "<group>"; };
 		E5709A7E20CF0AD200C4766D /* Interests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interests.swift; sourceTree = "<group>"; };
+		E5709A8020CFDD5500C4766D /* ClockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockViewController.swift; sourceTree = "<group>"; };
+		E5709A8220CFF09E00C4766D /* ClockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockTableViewCell.swift; sourceTree = "<group>"; };
+		E5709A8420CFF38E00C4766D /* ClockedShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockedShift.swift; sourceTree = "<group>"; };
 		E5B6721A20CB2E6900744157 /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
 		E5D4937C20C9905900AFCACB /* UpcommingShifts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcommingShifts.swift; sourceTree = "<group>"; };
 		E5D4937E20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcommmingShiftRowTableViewCell.swift; sourceTree = "<group>"; };
@@ -106,6 +112,7 @@
 				E526E33D20C8663F007EF258 /* Shift.swift */,
 				E5709A7A20CEF1E100C4766D /* ShiftToTake.swift */,
 				E5709A7E20CF0AD200C4766D /* Interests.swift */,
+				E5709A8420CFF38E00C4766D /* ClockedShift.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -152,6 +159,8 @@
 				E5709A7420CEA31700C4766D /* salaryTableViewCell.swift */,
 				E5709A7620CEEF0A00C4766D /* InterestsViewViewController.swift */,
 				E5709A7C20CEFD7500C4766D /* InterestsTableViewCell.swift */,
+				E5709A8020CFDD5500C4766D /* ClockViewController.swift */,
+				E5709A8220CFF09E00C4766D /* ClockTableViewCell.swift */,
 			);
 			path = pami;
 			sourceTree = "<group>";
@@ -302,6 +311,7 @@
 				E5709A6F20CC0A5E00C4766D /* ContactsViewController.swift in Sources */,
 				E5709A7D20CEFD7500C4766D /* InterestsTableViewCell.swift in Sources */,
 				E5D4937F20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift in Sources */,
+				E5709A8320CFF09E00C4766D /* ClockTableViewCell.swift in Sources */,
 				E5709A7F20CF0AD200C4766D /* Interests.swift in Sources */,
 				E51B915D20C7126E00271801 /* Company.swift in Sources */,
 				E5B6721B20CB2E6900744157 /* MyInfoViewController.swift in Sources */,
@@ -312,6 +322,8 @@
 				E555F90E20C0201100C89FAD /* AppDelegate.swift in Sources */,
 				E5709A7320CE960A00C4766D /* SalariesViewController.swift in Sources */,
 				E5709A7B20CEF1E100C4766D /* ShiftToTake.swift in Sources */,
+				E5709A8520CFF38E00C4766D /* ClockedShift.swift in Sources */,
+				E5709A8120CFDD5500C4766D /* ClockViewController.swift in Sources */,
 				E5037BF020C8337B00D6763D /* HomeViewController.swift in Sources */,
 				E5709A7720CEEF0A00C4766D /* InterestsViewViewController.swift in Sources */,
 				E5D4937D20C9905900AFCACB /* UpcommingShifts.swift in Sources */,

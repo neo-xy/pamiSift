@@ -34,7 +34,9 @@ struct Shift{
     timeStempIn = 0,
     timeStempOut = 0,
     vat = 0,
-    shiftId = ""
+    shiftId = "",
+    messageIn = "",
+    messageOut = ""
     
     
 }

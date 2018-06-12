@@ -568,14 +568,150 @@
         <!--Stämpel-->
         <scene sceneID="98K-p7-UJU">
             <objects>
-                <viewController id="bdn-zZ-2Ir" sceneMemberID="viewController">
+                <viewController id="bdn-zZ-2Ir" customClass="ClockViewController" customModule="pami" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Oug-wj-9Ha">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stämpelklocka" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quz-3r-1z4">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="3dU-Bq-LTO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="27"/>
+                                <color key="textColor" name="mainGray"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="A5z-OL-LOW">
+                                <rect key="frame" x="40" y="87" width="295" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rZu-Ca-7Od">
+                                        <rect key="frame" x="0.0" y="0.0" width="127.5" height="40"/>
+                                        <color key="backgroundColor" name="primaryColor"/>
+                                        <state key="normal" title="STÄMPLA IN">
+                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onClockIn:" destination="bdn-zZ-2Ir" eventType="touchUpInside" id="hjZ-kV-iX5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZr-eb-odC">
+                                        <rect key="frame" x="167.5" y="0.0" width="127.5" height="40"/>
+                                        <color key="backgroundColor" name="primaryColor"/>
+                                        <state key="normal" title="STÄMPLA UT">
+                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onClockOut:" destination="bdn-zZ-2Ir" eventType="touchUpInside" id="kRl-36-qzA"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="qXu-9Q-PYU"/>
+                                </constraints>
+                            </stackView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Meddelande till arbetsgivare" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="me1-h6-5KH">
+                                <rect key="frame" x="40" y="157" width="295" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Qda-Ou-fSQ"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rzo-LL-xT6">
+                                <rect key="frame" x="0.0" y="210" width="375" height="20"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instämplade" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1J-CK-Dpd">
+                                        <rect key="frame" x="142.5" y="1" width="89" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" name="primaryColor"/>
+                                <constraints>
+                                    <constraint firstItem="n1J-CK-Dpd" firstAttribute="centerX" secondItem="rzo-LL-xT6" secondAttribute="centerX" id="abT-YC-VPJ"/>
+                                    <constraint firstAttribute="height" constant="20" id="pkc-Hq-Udq"/>
+                                    <constraint firstItem="n1J-CK-Dpd" firstAttribute="centerY" secondItem="rzo-LL-xT6" secondAttribute="centerY" id="tTa-Ue-2KT"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cjh-ht-tnJ">
+                                <rect key="frame" x="0.0" y="230" width="375" height="388"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="V0I-yG-Bz3">
+                                    <rect key="frame" x="0.0" y="79" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="51" id="d9T-de-Hxo" customClass="ClockTableViewCell" customModule="pami" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="51"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d9T-de-Hxo" id="wgk-ve-re7">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:45" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fU4-Gk-76u">
+                                                    <rect key="frame" x="55" y="15" width="100" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="0Y2-3l-juH"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="mainGray"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pawel Borkowski" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FfE-5x-Nrl">
+                                                    <rect key="frame" x="155" y="15" width="127" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="mainGray"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="FfE-5x-Nrl" firstAttribute="centerY" secondItem="wgk-ve-re7" secondAttribute="centerY" id="3KQ-6U-TfZ"/>
+                                                <constraint firstItem="fU4-Gk-76u" firstAttribute="centerY" secondItem="wgk-ve-re7" secondAttribute="centerY" id="5cd-HP-sWc"/>
+                                                <constraint firstItem="FfE-5x-Nrl" firstAttribute="leading" secondItem="fU4-Gk-76u" secondAttribute="trailing" id="hik-X7-49E"/>
+                                                <constraint firstItem="fU4-Gk-76u" firstAttribute="leading" secondItem="wgk-ve-re7" secondAttribute="leadingMargin" constant="40" id="yif-1A-z9j"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="name" destination="FfE-5x-Nrl" id="KJQ-h9-URI"/>
+                                            <outlet property="time" destination="fU4-Gk-76u" id="KTP-z7-Ahu"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="A5z-OL-LOW" firstAttribute="top" secondItem="quz-3r-1z4" secondAttribute="bottom" constant="23" id="6Ze-lx-bJy"/>
+                            <constraint firstItem="RMR-Tk-dtS" firstAttribute="trailing" secondItem="A5z-OL-LOW" secondAttribute="trailing" constant="40" id="AO2-mO-8aw"/>
+                            <constraint firstItem="cjh-ht-tnJ" firstAttribute="top" secondItem="rzo-LL-xT6" secondAttribute="bottom" id="BXk-SO-G0P"/>
+                            <constraint firstItem="RMR-Tk-dtS" firstAttribute="bottom" secondItem="cjh-ht-tnJ" secondAttribute="bottom" id="Gah-La-RoW"/>
+                            <constraint firstItem="RMR-Tk-dtS" firstAttribute="trailing" secondItem="me1-h6-5KH" secondAttribute="trailing" constant="40" id="HRL-bN-Paz"/>
+                            <constraint firstItem="quz-3r-1z4" firstAttribute="trailing" secondItem="RMR-Tk-dtS" secondAttribute="trailing" id="IV3-ht-8gb"/>
+                            <constraint firstItem="me1-h6-5KH" firstAttribute="leading" secondItem="RMR-Tk-dtS" secondAttribute="leading" constant="40" id="R07-a1-3kn"/>
+                            <constraint firstItem="cjh-ht-tnJ" firstAttribute="leading" secondItem="RMR-Tk-dtS" secondAttribute="leading" id="RSD-3S-oEH"/>
+                            <constraint firstItem="me1-h6-5KH" firstAttribute="top" secondItem="A5z-OL-LOW" secondAttribute="bottom" constant="30" id="SYe-cI-vGI"/>
+                            <constraint firstItem="RMR-Tk-dtS" firstAttribute="trailing" secondItem="cjh-ht-tnJ" secondAttribute="trailing" id="TEO-jX-zlH"/>
+                            <constraint firstItem="quz-3r-1z4" firstAttribute="top" secondItem="RMR-Tk-dtS" secondAttribute="top" id="TFq-Nm-Uo7"/>
+                            <constraint firstItem="quz-3r-1z4" firstAttribute="leading" secondItem="RMR-Tk-dtS" secondAttribute="leading" id="TmT-uT-bj1"/>
+                            <constraint firstItem="rzo-LL-xT6" firstAttribute="leading" secondItem="RMR-Tk-dtS" secondAttribute="leading" id="ZUJ-oF-WN8"/>
+                            <constraint firstItem="rzo-LL-xT6" firstAttribute="top" secondItem="me1-h6-5KH" secondAttribute="bottom" constant="8" id="qON-j4-a0l"/>
+                            <constraint firstItem="A5z-OL-LOW" firstAttribute="leading" secondItem="RMR-Tk-dtS" secondAttribute="leading" constant="40" id="vlx-IV-Pz9"/>
+                            <constraint firstItem="RMR-Tk-dtS" firstAttribute="trailing" secondItem="rzo-LL-xT6" secondAttribute="trailing" id="yZc-0M-82X"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="RMR-Tk-dtS"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Stämpel" image="clock" id="mq4-4M-Y3r"/>
+                    <connections>
+                        <outlet property="clockInBtn" destination="rZu-Ca-7Od" id="8Na-aY-DGr"/>
+                        <outlet property="clockOutBtn" destination="hZr-eb-odC" id="Uyz-2X-klz"/>
+                        <outlet property="messageField" destination="me1-h6-5KH" id="IdX-JH-XQA"/>
+                        <outlet property="tableView" destination="cjh-ht-tnJ" id="Wlu-La-04V"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f2u-uf-90e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -601,6 +737,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BIv-CS-u7W">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="whS-EV-pWg">
                                     <rect key="frame" x="0.0" y="79" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1147,6 +1284,9 @@
         <image name="loginBg" width="640" height="428"/>
         <image name="manage" width="25" height="25"/>
         <image name="time_card_ic" width="25" height="25"/>
+        <namedColor name="mainGray">
+            <color red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="mainGray">
             <color red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
