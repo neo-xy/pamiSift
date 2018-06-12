@@ -9,6 +9,7 @@
 import UIKit
 
 class CustomTabBarController: UITabBarController {
+    var shiftsToTake:[ShiftToTake] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,11 @@ class CustomTabBarController: UITabBarController {
         
         self.tabBar.tintColor = UIColor(named: "primaryDark")
         
+        FirebaseController.getShiftsToTake().subscribe { (event) in
+            self.shiftsToTake = event.element!
+            (self.tabBar.items![3] as UITabBarItem).badgeValue = String(self.shiftsToTake.count)
+        }
+        
         // Do any additional setup after loading the view.
     }
 
@@ -32,16 +38,6 @@ class CustomTabBarController: UITabBarController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

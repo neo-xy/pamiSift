@@ -16,6 +16,8 @@ class FirebaseController{
     
     static var user = User()
     static var employees:[User] = []
+    static var shiftsToTake:[ShiftToTake] = []
+    
     
     static func setUpUser() -> Observable<Bool>{
         
@@ -43,6 +45,7 @@ class FirebaseController{
                 user.employeeId = id!
                 
                 self.getEmployees()
+                
                 
                 sub.onNext(true)
             })
@@ -155,7 +158,7 @@ class FirebaseController{
     }
     
     static func getEmployees() {
-         Firestore.firestore().collection("companies").document(self.user.companyId).collection("employees").addSnapshotListener({ (snapshots, error) in
+        Firestore.firestore().collection("companies").document(self.user.companyId).collection("employees").addSnapshotListener({ (snapshots, error) in
             
             for snapshot:QueryDocumentSnapshot in snapshots!.documents{
                 var user = User()
@@ -167,6 +170,78 @@ class FirebaseController{
                 employees.append(user)
             }
         })
+    }
+    
+    static func getShiftsToTake() -> Observable<[ShiftToTake]>{
+        return Observable.create { (sub) -> Disposable in Firestore.firestore().collection("companies").document(user.companyId).collection("shiftsToTake").addSnapshotListener({ (snapshots, error) in
+            
+            var shiftsToTake:[ShiftToTake] = []
+            for snapshot in snapshots!.documents{
+                var shift = ShiftToTake()
+                shift.date = (snapshot.get("date") as! Timestamp).dateValue()
+                shift.startDate = (snapshot.get("startDate") as! Timestamp).dateValue()
+                shift.endDate = (snapshot.get("endDate") as! Timestamp).dateValue()
+                shift.departmentName = snapshot.get("departmentName") as! String
+                shift.id = snapshot.documentID
+                shiftsToTake.append(shift)
+            }
+            sub.onNext(shiftsToTake)
+        })
+            
+            return Disposables.create()
+        }
+    }
+    
+    static func setUpShiftsToTake() {
+        Firestore.firestore().collection("companies").document(user.companyId).collection("shiftsToTake").addSnapshotListener({ (snapshots, error) in
+            
+            var shiftsToTake:[ShiftToTake] = []
+            for snapshot in snapshots!.documents{
+                var shift = ShiftToTake()
+                shift.date = (snapshot.get("date") as! Timestamp).dateValue()
+                shift.startDate = (snapshot.get("startDate") as! Timestamp).dateValue()
+                shift.endDate = (snapshot.get("endDate") as! Timestamp).dateValue()
+                shift.departmentName = snapshot.get("departmentName") as! String
+                shift.id = snapshot.documentID
+                shiftsToTake.append(shift)
+            }
+            self.shiftsToTake =  shiftsToTake
+            print("to take \(shiftsToTake.count)")
+        })
+    }
+    
+    static func getInterests() -> Observable<[Interest]>{
+        return  Observable.create { (obs) -> Disposable in
+            Firestore.firestore().collection("companies").document(user.companyId).collection("interests").addSnapshotListener({ (snapshots, error) in
+                var interests:[Interest] = []
+                for snapshot in snapshots!.documents{
+                    var interest = Interest()
+                    interest.dateAdded = (snapshot.get("dateAdded") as! Timestamp).dateValue()
+                    interest.department = snapshot.get("department") as! String
+                    interest.employeeId = snapshot.get("employeeId") as! String
+                    interest.startDate = (snapshot.get("startDate") as! Timestamp).dateValue()
+                    interest.endDate = (snapshot.get("endDate") as! Timestamp).dateValue()
+                    interest.shiftToTakeId = snapshot.get("shiftToTakeId") as! String
+                    interest.interestId = snapshot.documentID
+                    
+                    interests.append(interest)
+                  
+                }
+                  obs.onNext(interests)
+                print("eee \(interests.count)")
+            })
+            return Disposables.create()
+        }
+    }
+    
+    static func addInterest(interest:[String:Any]){
+        Firestore.firestore().collection("companies").document(user.companyId).collection("interests").addDocument(data: interest) { (error) in
+            print(error)
+        }
+    }
+    
+    static func removeInterest(id:String){
+        Firestore.firestore().collection("companies").document(user.companyId).collection("interests").document(id).delete()
     }
     
 }

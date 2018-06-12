@@ -25,6 +25,10 @@
 		E5709A7120CC0E0D00C4766D /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A7020CC0E0D00C4766D /* ContactTableViewCell.swift */; };
 		E5709A7320CE960A00C4766D /* SalariesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A7220CE960A00C4766D /* SalariesViewController.swift */; };
 		E5709A7520CEA31700C4766D /* salaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A7420CEA31700C4766D /* salaryTableViewCell.swift */; };
+		E5709A7720CEEF0A00C4766D /* InterestsViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A7620CEEF0A00C4766D /* InterestsViewViewController.swift */; };
+		E5709A7B20CEF1E100C4766D /* ShiftToTake.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A7A20CEF1E100C4766D /* ShiftToTake.swift */; };
+		E5709A7D20CEFD7500C4766D /* InterestsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A7C20CEFD7500C4766D /* InterestsTableViewCell.swift */; };
+		E5709A7F20CF0AD200C4766D /* Interests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A7E20CF0AD200C4766D /* Interests.swift */; };
 		E5B6721B20CB2E6900744157 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B6721A20CB2E6900744157 /* MyInfoViewController.swift */; };
 		E5D4937D20C9905900AFCACB /* UpcommingShifts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4937C20C9905900AFCACB /* UpcommingShifts.swift */; };
 		E5D4937F20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4937E20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift */; };
@@ -54,6 +58,10 @@
 		E5709A7020CC0E0D00C4766D /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		E5709A7220CE960A00C4766D /* SalariesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalariesViewController.swift; sourceTree = "<group>"; };
 		E5709A7420CEA31700C4766D /* salaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = salaryTableViewCell.swift; sourceTree = "<group>"; };
+		E5709A7620CEEF0A00C4766D /* InterestsViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsViewViewController.swift; sourceTree = "<group>"; };
+		E5709A7A20CEF1E100C4766D /* ShiftToTake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftToTake.swift; sourceTree = "<group>"; };
+		E5709A7C20CEFD7500C4766D /* InterestsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsTableViewCell.swift; sourceTree = "<group>"; };
+		E5709A7E20CF0AD200C4766D /* Interests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interests.swift; sourceTree = "<group>"; };
 		E5B6721A20CB2E6900744157 /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
 		E5D4937C20C9905900AFCACB /* UpcommingShifts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcommingShifts.swift; sourceTree = "<group>"; };
 		E5D4937E20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcommmingShiftRowTableViewCell.swift; sourceTree = "<group>"; };
@@ -96,6 +104,8 @@
 				E51B915A20C6F76500271801 /* InfoMessage.swift */,
 				E51B915C20C7126E00271801 /* Company.swift */,
 				E526E33D20C8663F007EF258 /* Shift.swift */,
+				E5709A7A20CEF1E100C4766D /* ShiftToTake.swift */,
+				E5709A7E20CF0AD200C4766D /* Interests.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -140,6 +150,8 @@
 				E5709A7020CC0E0D00C4766D /* ContactTableViewCell.swift */,
 				E5709A7220CE960A00C4766D /* SalariesViewController.swift */,
 				E5709A7420CEA31700C4766D /* salaryTableViewCell.swift */,
+				E5709A7620CEEF0A00C4766D /* InterestsViewViewController.swift */,
+				E5709A7C20CEFD7500C4766D /* InterestsTableViewCell.swift */,
 			);
 			path = pami;
 			sourceTree = "<group>";
@@ -288,7 +300,9 @@
 				E5709A7520CEA31700C4766D /* salaryTableViewCell.swift in Sources */,
 				E5360E2F20C40B3E00E5EFDD /* FirebaseController.swift in Sources */,
 				E5709A6F20CC0A5E00C4766D /* ContactsViewController.swift in Sources */,
+				E5709A7D20CEFD7500C4766D /* InterestsTableViewCell.swift in Sources */,
 				E5D4937F20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift in Sources */,
+				E5709A7F20CF0AD200C4766D /* Interests.swift in Sources */,
 				E51B915D20C7126E00271801 /* Company.swift in Sources */,
 				E5B6721B20CB2E6900744157 /* MyInfoViewController.swift in Sources */,
 				E5360E0920C2EF3900E5EFDD /* MainController.swift in Sources */,
@@ -297,7 +311,9 @@
 				E526E33E20C8663F007EF258 /* Shift.swift in Sources */,
 				E555F90E20C0201100C89FAD /* AppDelegate.swift in Sources */,
 				E5709A7320CE960A00C4766D /* SalariesViewController.swift in Sources */,
+				E5709A7B20CEF1E100C4766D /* ShiftToTake.swift in Sources */,
 				E5037BF020C8337B00D6763D /* HomeViewController.swift in Sources */,
+				E5709A7720CEEF0A00C4766D /* InterestsViewViewController.swift in Sources */,
 				E5D4937D20C9905900AFCACB /* UpcommingShifts.swift in Sources */,
 				E51B915B20C6F76500271801 /* InfoMessage.swift in Sources */,
 				E5D883DD20C4548F00492677 /* User.swift in Sources */,
