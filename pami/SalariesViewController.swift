@@ -58,7 +58,7 @@ class SalariesViewController: UIViewController , UITableViewDelegate, UITableVie
             cel.startCell.text = ""
             cel.endCell.text = ""
             cel.durationCell.text = String(self.monthTotalHours)
-            cel.payCell.text = String(self.monthTotalPay)
+            cel.payCell.text = ""
             cel.durationCell.font = UIFont.boldSystemFont(ofSize: 16.0)
             cel.payCell.font = UIFont.boldSystemFont(ofSize: 16.0)
         } else if((currentShifts.count + 1) == indexPath.row){
@@ -79,8 +79,8 @@ class SalariesViewController: UIViewController , UITableViewDelegate, UITableVie
             df.dateFormat = "HH:mm"
             cel.startCell.text = df.string(from: currentShifts[indexPath.row].startDate)
             cel.endCell.text = df.string(from: currentShifts[indexPath.row].endDate)
-            cel.payCell.text = String(currentShifts[indexPath.row].OBmoney + currentShifts[indexPath.row].OBnattMoney + currentShifts[indexPath.row].basePay)
-            
+//            cel.payCell.text = String(currentShifts[indexPath.row].OBmoney + currentShifts[indexPath.row].OBnattMoney + currentShifts[indexPath.row].basePay)
+            cel.payCell.text = String(currentShifts[indexPath.row].netto)
             cel.durationCell.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             cel.payCell.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
         }
@@ -97,7 +97,7 @@ class SalariesViewController: UIViewController , UITableViewDelegate, UITableVie
         monthTotalPay = 0
         monthTotalBrutto = 0
         
-        var calNowMonth =   calNow.component(Calendar.Component.month, from: date)
+        let calNowMonth =   calNow.component(Calendar.Component.month, from: date)
         
         acceptedShifts.forEach { (shift) in
             let month = calNow.component(Calendar.Component.month, from: shift.startDate)

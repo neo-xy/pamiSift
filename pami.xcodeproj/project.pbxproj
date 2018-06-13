@@ -32,6 +32,8 @@
 		E5709A8120CFDD5500C4766D /* ClockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A8020CFDD5500C4766D /* ClockViewController.swift */; };
 		E5709A8320CFF09E00C4766D /* ClockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A8220CFF09E00C4766D /* ClockTableViewCell.swift */; };
 		E5709A8520CFF38E00C4766D /* ClockedShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A8420CFF38E00C4766D /* ClockedShift.swift */; };
+		E5709A8720D04F5000C4766D /* MenagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A8620D04F5000C4766D /* MenagerViewController.swift */; };
+		E5709A8920D04F7B00C4766D /* MenagerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A8820D04F7B00C4766D /* MenagerTableViewCell.swift */; };
 		E5B6721B20CB2E6900744157 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B6721A20CB2E6900744157 /* MyInfoViewController.swift */; };
 		E5D4937D20C9905900AFCACB /* UpcommingShifts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4937C20C9905900AFCACB /* UpcommingShifts.swift */; };
 		E5D4937F20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4937E20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift */; };
@@ -68,6 +70,8 @@
 		E5709A8020CFDD5500C4766D /* ClockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockViewController.swift; sourceTree = "<group>"; };
 		E5709A8220CFF09E00C4766D /* ClockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockTableViewCell.swift; sourceTree = "<group>"; };
 		E5709A8420CFF38E00C4766D /* ClockedShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockedShift.swift; sourceTree = "<group>"; };
+		E5709A8620D04F5000C4766D /* MenagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenagerViewController.swift; path = pami/MenagerViewController.swift; sourceTree = SOURCE_ROOT; };
+		E5709A8820D04F7B00C4766D /* MenagerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenagerTableViewCell.swift; sourceTree = "<group>"; };
 		E5B6721A20CB2E6900744157 /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
 		E5D4937C20C9905900AFCACB /* UpcommingShifts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcommingShifts.swift; sourceTree = "<group>"; };
 		E5D4937E20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcommmingShiftRowTableViewCell.swift; sourceTree = "<group>"; };
@@ -161,6 +165,8 @@
 				E5709A7C20CEFD7500C4766D /* InterestsTableViewCell.swift */,
 				E5709A8020CFDD5500C4766D /* ClockViewController.swift */,
 				E5709A8220CFF09E00C4766D /* ClockTableViewCell.swift */,
+				E5709A8620D04F5000C4766D /* MenagerViewController.swift */,
+				E5709A8820D04F7B00C4766D /* MenagerTableViewCell.swift */,
 			);
 			path = pami;
 			sourceTree = "<group>";
@@ -322,6 +328,8 @@
 				E555F90E20C0201100C89FAD /* AppDelegate.swift in Sources */,
 				E5709A7320CE960A00C4766D /* SalariesViewController.swift in Sources */,
 				E5709A7B20CEF1E100C4766D /* ShiftToTake.swift in Sources */,
+				E5709A8720D04F5000C4766D /* MenagerViewController.swift in Sources */,
+				E5709A8920D04F7B00C4766D /* MenagerTableViewCell.swift in Sources */,
 				E5709A8520CFF38E00C4766D /* ClockedShift.swift in Sources */,
 				E5709A8120CFDD5500C4766D /* ClockViewController.swift in Sources */,
 				E5037BF020C8337B00D6763D /* HomeViewController.swift in Sources */,

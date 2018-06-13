@@ -142,7 +142,7 @@ class FirebaseController{
                     shift.message = snap.get("message") as! String
                     shift.netto = snap.get("netto") as! Int
                     shift.shiftStatus = snap.get("shiftStatus") as! String
-                    shift.shiftId =  snap.documentID as! String
+                    shift.shiftId =  snap.documentID
                     var department = Department()
                     department.color = ((snap.data()["department"] as!  NSMutableDictionary).value(forKey: "color")) as! String
                     department.id = ((snap.data()["department"] as!  NSMutableDictionary).value(forKey: "id")) as! String
@@ -167,6 +167,8 @@ class FirebaseController{
                 user.phoneNumber = snapshot.get("phoneNumber") as! String
                 user.email = snapshot.get("email") as! String
                 user.role = snapshot.get("role") as! String
+                user.employeeId = snapshot.get("employeeId") as! String
+                user.socialSecurityNumber = snapshot.get("socialSecurityNumber") as! Int
                 employees.append(user)
             }
         })
@@ -271,6 +273,7 @@ class FirebaseController{
     static func clockOutShift(clockShift:ClockedShift){
         print("clockoutshift \(clockShift.clockedShiftId)")
         Firestore.firestore().collection("companies").document(user.companyId).collection("activeShifts").document(clockShift.clockedShiftId).delete { (error) in
+            print(error)
             if(error == nil){
                   addToShiftToAccept(shift: clockShift)
             }

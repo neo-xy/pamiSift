@@ -55,7 +55,8 @@ class ClockViewController: UIViewController, UITableViewDelegate, UITableViewDat
         clockOutBtn.isEnabled = false
         clockInBtn.backgroundColor = UIColor.lightGray
         clockOutBtn.backgroundColor = UIColor.lightGray
-        
+        tableView.delegate = self
+        tableView.dataSource = self
         
         messageField.layer.borderColor = UIColor(named: "primaryDark")?.cgColor
         messageField.layer.borderWidth = 1
@@ -84,8 +85,7 @@ class ClockViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         df.dateFormat = "HH:mm"
         
-        tableView.delegate = self
-        tableView.dataSource = self
+    
     }
     
     override func didReceiveMemoryWarning() {
