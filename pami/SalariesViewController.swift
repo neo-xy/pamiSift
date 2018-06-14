@@ -53,7 +53,6 @@ class SalariesViewController: UIViewController , UITableViewDelegate, UITableVie
         let cel = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! salaryTableViewCell
         
         if((currentShifts.count ) == indexPath.row){
-            print("-2")
             cel.dayCell.text = ""
             cel.startCell.text = ""
             cel.endCell.text = ""
@@ -62,7 +61,6 @@ class SalariesViewController: UIViewController , UITableViewDelegate, UITableVie
             cel.durationCell.font = UIFont.boldSystemFont(ofSize: 16.0)
             cel.payCell.font = UIFont.boldSystemFont(ofSize: 16.0)
         } else if((currentShifts.count + 1) == indexPath.row){
-            print(-1)
             cel.dayCell.text = ""
             cel.endCell.text = ""
             cel.startCell.text = ""
@@ -71,7 +69,6 @@ class SalariesViewController: UIViewController , UITableViewDelegate, UITableVie
             cel.durationCell.font = UIFont.boldSystemFont(ofSize: 16.0)
               cel.payCell.font = UIFont.boldSystemFont(ofSize: 16.0)
         }else{
-            print("else \(indexPath.row)")
             df.dateFormat = "dd"
             cel.dayCell.text = df.string(from: currentShifts[indexPath.row].startDate)
             
@@ -79,14 +76,12 @@ class SalariesViewController: UIViewController , UITableViewDelegate, UITableVie
             df.dateFormat = "HH:mm"
             cel.startCell.text = df.string(from: currentShifts[indexPath.row].startDate)
             cel.endCell.text = df.string(from: currentShifts[indexPath.row].endDate)
-//            cel.payCell.text = String(currentShifts[indexPath.row].OBmoney + currentShifts[indexPath.row].OBnattMoney + currentShifts[indexPath.row].basePay)
+
             cel.payCell.text = String(currentShifts[indexPath.row].netto)
             cel.durationCell.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             cel.payCell.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
         }
-        
-     
-        
+ 
         return cel
     }
     

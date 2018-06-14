@@ -21,12 +21,11 @@ class MenagerViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-   
+        
         employees = FirebaseController.employees
-       _ = FirebaseController.getActiveShifts().subscribe { (event) in
-        print("acccccc")
+        _ = FirebaseController.getActiveShifts().subscribe { (event) in
             self.activeShifts = event.element!
-        self.activeIds = []
+            self.activeIds = []
             self.activeShifts.forEach({ (clockedShift) in
                 self.activeIds.append(clockedShift.employeeId)
             })
@@ -47,7 +46,7 @@ class MenagerViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MenagerTableViewCell
-
+        
         if(activeIds.contains(employees[indexPath.row].employeeId)){
             
             cell.backgroundColor = UIColor(named: "primaryColor")
@@ -75,7 +74,7 @@ class MenagerViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
- 
+        
         let employee = employees[indexPath.row]
         
         if(activeIds.contains(employee.employeeId)){
@@ -88,7 +87,6 @@ class MenagerViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 for var shift in self.activeShifts {
                     if(shift.employeeId == self.employees[indexPath.row].employeeId){
-                        print("vvvvvvvv")
                         shift.messageOut = "Utstämplad utav " + FirebaseController.user.firstName + " " + FirebaseController.user.lastName
                         shift.timeStempOut = Int(Date().timeIntervalSince1970)
                         FirebaseController.clockOutShift(clockShift: shift)
@@ -97,12 +95,12 @@ class MenagerViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             alertView.addAction(cancel)
             alertView.addAction(accept)
-  
+            
             present(alertView, animated: true, completion: nil)
             tableView.deselectRow(at: indexPath, animated: false)
             
         }else{
-
+            
             let alertView2 = UIAlertController(title: employee.firstName + " " + employee.lastName, message: String(employee.socialSecurityNumber), preferredStyle: .alert)
             let cancel = UIAlertAction(title: "Avbryt", style: .destructive) { (action) in
                 

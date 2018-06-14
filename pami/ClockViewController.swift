@@ -20,7 +20,6 @@ class ClockViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var clockInBtn: UIButton!
     
     @IBAction func onClockOut(_ sender: Any) {
-        print("zzzz")
         clockOutBtn.isEnabled = false
 
         for var actS in activeShifts{
@@ -80,18 +79,14 @@ class ClockViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.clockOutBtn.backgroundColor = UIColor.lightGray
                 self.clockInBtn.backgroundColor = UIColor(named: "primaryColor")
             }
-            
             self.tableView.reloadData()
         }
         df.dateFormat = "HH:mm"
-        
-    
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return activeShifts.count
@@ -100,7 +95,6 @@ class ClockViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ClockTableViewCell
-        
         cell.name.text = activeShifts[indexPath.row].firstName + " " + activeShifts[indexPath.row].lastName
         cell.time.text = self.df.string(for: Date(timeIntervalSince1970: Double(activeShifts[indexPath.row].timeStempIn)))
         

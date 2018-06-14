@@ -293,4 +293,65 @@ class FirebaseController{
         Firestore.firestore().collection("companies").document(user.companyId).collection("shiftsToAccept").addDocument(data: doc)
     }
     
+    static func getEmployeesShiftsOfMonth(date:Date) -> Observable<[Shift]>{
+        var df = DateFormatter()
+        df.dateFormat = "yyyyMM"
+        var key = df.string(from: date)
+        print("key \(key)")
+        
+        return Observable.create({ (sub) -> Disposable in
+           
+            var shifts :[Shift] = []
+            Firestore.firestore().collection("companies").document(user.companyId).collection("months").document(key).collection("shifts").addSnapshotListener({ (snapshots, error) in
+                for snap in snapshots!.documents{
+                    var shift = Shift()
+                    
+                    shift.firstName = snap.data()["firstName"] as! String
+                    shift.lastName = snap.get("lastName") as! String
+                    shift.OBhours = snap.get("OBhours") as! Double
+                    shift.OBmoney = snap.get("OBmoney") as! Int
+                    shift.OBnattHours = snap.get("OBnattHours") as! Double
+                    shift.OBnattMoney = snap.get("OBnattMoney") as! Int
+                    shift.basePay = snap.get("basePay") as! Int
+                    shift.brutto = snap.get("brutto") as! Int
+                    shift.duration = snap.get("duration") as! Double
+                    shift.employeeId = snap.get("employeeId") as! String
+                    shift.employeeSalary = snap.get("employeeSalary") as! Int
+                    shift.employmentType =  snap.get("employmentType") as! String
+                    shift.endDate = (snap.get("endDate") as! Timestamp).dateValue()
+                    shift.startDate = (snap.get("startDate") as! Timestamp).dateValue()
+                    shift.holidayCompensation = snap.get("holidayCompensation") as! Int
+                    shift.message = snap.get("message") as! String
+                    shift.netto = snap.get("netto") as! Int
+                    shift.shiftStatus = snap.get("shiftStatus") as! String
+                    shift.shiftId =  snap.documentID
+                    var department = Department()
+                    department.color = ((snap.data()["department"] as!  NSMutableDictionary).value(forKey: "color")) as! String
+                    department.id = ((snap.data()["department"] as!  NSMutableDictionary).value(forKey: "id")) as! String
+                    
+                    shift.department = department
+                    shifts.append(shift)
+                }
+                sub.onNext(shifts)
+            })
+            return Disposables.create()
+        })
+    }
+    
+    static func getUnavailableDates() -> Observable<[Date]>{
+       return Observable.create { (sub) -> Disposable in
+        
+        Firestore.firestore().collection("users").document(user.employeeId).collection("datesUnavailable").addSnapshotListener({ (snapshots, error) in
+            
+            var dates: [Date] = []
+            for snap in (snapshots?.documents)!{
+                let date = (snap.get("date") as! Timestamp).dateValue()
+                dates.append(date)
+            }
+            sub.onNext(dates)
+        })
+            return Disposables.create()
+        }
+    }
+    
 }

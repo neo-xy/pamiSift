@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SideMenu
 class MainController: UIViewController {
 
     override func viewDidLoad() {

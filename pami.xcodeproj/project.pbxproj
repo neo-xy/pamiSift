@@ -14,6 +14,11 @@
 		E51B915B20C6F76500271801 /* InfoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B915A20C6F76500271801 /* InfoMessage.swift */; };
 		E51B915D20C7126E00271801 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B915C20C7126E00271801 /* Company.swift */; };
 		E526E33E20C8663F007EF258 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526E33D20C8663F007EF258 /* Shift.swift */; };
+		E52B2C5820D1982500B05B4F /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B2C5720D1982500B05B4F /* ScheduleViewController.swift */; };
+		E52B2C5A20D198EC00B05B4F /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B2C5920D198EC00B05B4F /* DayCollectionViewCell.swift */; };
+		E52B2C5C20D1999000B05B4F /* headerCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B2C5B20D1999000B05B4F /* headerCollectionReusableView.swift */; };
+		E52B2C5E20D2451B00B05B4F /* WeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B2C5D20D2451B00B05B4F /* WeekViewController.swift */; };
+		E52B2C6020D2DCE000B05B4F /* weekTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B2C5F20D2DCDF00B05B4F /* weekTableViewCell.swift */; };
 		E5360E0920C2EF3900E5EFDD /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5360E0820C2EF3900E5EFDD /* MainController.swift */; };
 		E5360E2F20C40B3E00E5EFDD /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5360E2E20C40B3E00E5EFDD /* FirebaseController.swift */; };
 		E555F90E20C0201100C89FAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555F90D20C0201100C89FAD /* AppDelegate.swift */; };
@@ -50,6 +55,11 @@
 		E51B915A20C6F76500271801 /* InfoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoMessage.swift; sourceTree = "<group>"; };
 		E51B915C20C7126E00271801 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		E526E33D20C8663F007EF258 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
+		E52B2C5720D1982500B05B4F /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
+		E52B2C5920D198EC00B05B4F /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
+		E52B2C5B20D1999000B05B4F /* headerCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = headerCollectionReusableView.swift; sourceTree = "<group>"; };
+		E52B2C5D20D2451B00B05B4F /* WeekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekViewController.swift; sourceTree = "<group>"; };
+		E52B2C5F20D2DCDF00B05B4F /* weekTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weekTableViewCell.swift; sourceTree = "<group>"; };
 		E5360E0820C2EF3900E5EFDD /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		E5360E2E20C40B3E00E5EFDD /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		E555F90A20C0201100C89FAD /* pami.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pami.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +177,11 @@
 				E5709A8220CFF09E00C4766D /* ClockTableViewCell.swift */,
 				E5709A8620D04F5000C4766D /* MenagerViewController.swift */,
 				E5709A8820D04F7B00C4766D /* MenagerTableViewCell.swift */,
+				E52B2C5720D1982500B05B4F /* ScheduleViewController.swift */,
+				E52B2C5920D198EC00B05B4F /* DayCollectionViewCell.swift */,
+				E52B2C5B20D1999000B05B4F /* headerCollectionReusableView.swift */,
+				E52B2C5D20D2451B00B05B4F /* WeekViewController.swift */,
+				E52B2C5F20D2DCDF00B05B4F /* weekTableViewCell.swift */,
 			);
 			path = pami;
 			sourceTree = "<group>";
@@ -273,10 +288,10 @@
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
@@ -289,10 +304,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
@@ -312,6 +327,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E52B2C5E20D2451B00B05B4F /* WeekViewController.swift in Sources */,
 				E5709A7520CEA31700C4766D /* salaryTableViewCell.swift in Sources */,
 				E5360E2F20C40B3E00E5EFDD /* FirebaseController.swift in Sources */,
 				E5709A6F20CC0A5E00C4766D /* ContactsViewController.swift in Sources */,
@@ -320,10 +336,14 @@
 				E5709A8320CFF09E00C4766D /* ClockTableViewCell.swift in Sources */,
 				E5709A7F20CF0AD200C4766D /* Interests.swift in Sources */,
 				E51B915D20C7126E00271801 /* Company.swift in Sources */,
+				E52B2C5C20D1999000B05B4F /* headerCollectionReusableView.swift in Sources */,
 				E5B6721B20CB2E6900744157 /* MyInfoViewController.swift in Sources */,
+				E52B2C6020D2DCE000B05B4F /* weekTableViewCell.swift in Sources */,
 				E5360E0920C2EF3900E5EFDD /* MainController.swift in Sources */,
 				E5709A7120CC0E0D00C4766D /* ContactTableViewCell.swift in Sources */,
+				E52B2C5A20D198EC00B05B4F /* DayCollectionViewCell.swift in Sources */,
 				E555F91020C0201100C89FAD /* ViewController.swift in Sources */,
+				E52B2C5820D1982500B05B4F /* ScheduleViewController.swift in Sources */,
 				E526E33E20C8663F007EF258 /* Shift.swift in Sources */,
 				E555F90E20C0201100C89FAD /* AppDelegate.swift in Sources */,
 				E5709A7320CE960A00C4766D /* SalariesViewController.swift in Sources */,
