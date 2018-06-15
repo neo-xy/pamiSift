@@ -4,21 +4,34 @@ import UIKit
 import JTAppleCalendar
 
 class WeekViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
+    
+    struct Section {
+       var  sectionName:String = ""
+        var sectionsShiffts : [Shift] = []
+    }
+    
+    var departments:[String] = []
+    
+    
+    var section:[String : [Shift]] = [:]
+    
     var df = DateFormatter()
     
     @IBOutlet weak var weekLabel:UILabel!
 
     @IBOutlet weak var tableView: UITableView!
-    var name:String = "ff"
+    
     var pickedDate:Date = Date()
     var employeesShifts:[Shift] = []
     @IBOutlet var collectionView : JTAppleCalendarView!
+    
+    
     
     var shiftsOfDay:[Shift] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(name)
+      
         tableView.delegate = self
         tableView.dataSource = self
         collectionView.scrollToDate(pickedDate)
@@ -37,13 +50,33 @@ class WeekViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         
         shiftsOfDay = []
+        departments = []
+        section.removeAll()
+        
         employeesShifts.forEach { (shift) in
             if(areDatesOfTheSameDay(dateOne: pickedDate, dateTwo: shift.startDate)){
                 shiftsOfDay.append(shift)
+                if(section[shift.department.id] == nil){
+                    section[shift.department.id] = []
+                }
+            
+              section[shift.department.id]?.append(shift)
             }
+        }
+        
+        section.keys.forEach { (section) in
+            departments.append(section)
+        }
+        
+        departments.sort { (a, b) -> Bool in
+            return a < b
         }
         tableView.reloadData()
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,16 +84,31 @@ class WeekViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(employeesShifts.count)
-        return shiftsOfDay.count
+        
+        var depName:String = departments[section]
+       
+        
+        print("sechhh \( self.section[depName]?.count)")
+        return  (self.section[depName]?.count)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! weekTableViewCell
-        cell.name.text =  employeesShifts[indexPath.row].firstName + " " + employeesShifts[indexPath.row].lastName
-        cell.department.text = employeesShifts[indexPath.row].department.id
-        print(employeesShifts[indexPath.row].department.id)
+//        cell.name.text =  employeesShifts[indexPath.row].firstName + " " + employeesShifts[indexPath.row].lastName
+//        cell.department.text = employeesShifts[indexPath.row].department.id
+//        print(employeesShifts[indexPath.row].department.id)
+        
+        
+        var depName = departments[indexPath.section]
+    
+        var shift :Shift = section[depName]![indexPath.row]
+        cell.name.text =  shift.firstName + " " + shift.lastName
+        cell.department.text =  shift.department.id
+        
+        df.dateFormat = "HH:mm"
+        cell.time.text =  df.string(from: shift.startDate) + "-" + df.string(from: shift.endDate)
+        
 
         return cell
     }
@@ -72,11 +120,18 @@ class WeekViewController: UIViewController, UITableViewDelegate, UITableViewData
             return false
         }
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("sag")
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        print("name \(self.departments[section])")
+       return self.departments[section]
     }
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        print("sec \(departments.count)")
+        return departments.count
+    }
+    
+    
 }
 
 extension WeekViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource{
@@ -119,13 +174,29 @@ extension WeekViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         guard let validCell = cell as? DayCollectionViewCell else{return}
         validCell.backgroundColor = UIColor(named: "lightGray")
-        print("hhh")
         shiftsOfDay = []
+        section.removeAll()
+        departments = []
         employeesShifts.forEach { (shift) in
             if(areDatesOfTheSameDay(dateOne: cellState.date, dateTwo: shift.startDate)){
                 shiftsOfDay.append(shift)
+                
+                if(section[shift.department.id] == nil){
+                    section[shift.department.id] = []
+                }
+                
+                section[shift.department.id]?.append(shift)
             }
         }
+        
+        section.keys.forEach { (section) in
+            departments.append(section)
+        }
+        
+        departments.sort { (a, b) -> Bool in
+            return a < b
+        }
+        
         tableView.reloadData()
     }
     
