@@ -71,12 +71,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cel = upcommingShiftsTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! UpcommmingShiftRowTableViewCell
         
         
-        cel.layer.shadowOffset = CGSize(width: 0, height: 0)
-        cel.layer.shadowColor = UIColor(named: "primaryColor")?.cgColor
-        cel.layer.shadowRadius = 6
-        cel.layer.shadowOpacity = 0.5
-        cel.layer.masksToBounds = false;
-        cel.clipsToBounds = false;
+        cel.cardContainer.layer.cornerRadius = 6
+        
+//        cel.cardContainer.layer.masksToBounds = false
+//        cel.cardContainer.layer.shadowColor = UIColor.gray.cgColor
+//        cel.cardContainer.layer.shadowOpacity = 1
+//        cel.cardContainer.layer.shadowOffset = CGSize(width: -1, height: 1)
+//        cel.cardContainer.layer.shadowRadius = 6
+//        
+//        cel.cardContainer.layer.shadowPath = UIBezierPath(rect: cel.cardContainer.self.bounds).cgPath
+//        cel.cardContainer.layer.shouldRasterize = true
+//        cel.cardContainer.layer.rasterizationScale = true ? UIScreen.main.scale : 1
         
         cel.extraInfoMsg.text = shifts[indexPath.row].message
         df.dateFormat = "MMM"
@@ -87,7 +92,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         cel.extraInfoLabel.text = "Extra info:"
         df.dateFormat = "HH:mm"
         cel.shiftTimeSpanLabel.text = df.string(from: shifts[indexPath.row].startDate) + "-" + df.string(from: shifts[indexPath.row].endDate)
-        cel.shiftMark.layer.backgroundColor = hexStringToUIColor(hex: shifts[indexPath.row].department.color).cgColor
+        
+        cel.cardContainer.layer.backgroundColor = hexStringToUIColor(hex: shifts[indexPath.row].department.color).withAlphaComponent(0.5).cgColor
+        
+      cel.cardContainer.isOpaque = true
     
         
         return cel
@@ -114,9 +122,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             alpha: CGFloat(1.0)
         )
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+
     
 }

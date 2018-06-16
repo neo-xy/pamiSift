@@ -22,9 +22,12 @@ class CustomTabBarController: UITabBarController {
         self.moreNavigationController.navigationBar.backgroundColor = UIColor.white
         self.moreNavigationController.topViewController?.view.tintColor = UIColor(named: "primaryDark")
        (self.moreNavigationController.topViewController?.view as! UITableView).separatorStyle = UITableViewCellSeparatorStyle.none
+        
+        
        
         
         self.tabBar.tintColor = UIColor(named: "primaryDark")
+        
         
         FirebaseController.getShiftsToTake().subscribe { (event) in
             self.shiftsToTake = event.element!

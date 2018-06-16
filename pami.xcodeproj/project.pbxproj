@@ -19,6 +19,7 @@
 		E52B2C5C20D1999000B05B4F /* headerCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B2C5B20D1999000B05B4F /* headerCollectionReusableView.swift */; };
 		E52B2C5E20D2451B00B05B4F /* WeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B2C5D20D2451B00B05B4F /* WeekViewController.swift */; };
 		E52B2C6020D2DCE000B05B4F /* weekTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B2C5F20D2DCDF00B05B4F /* weekTableViewCell.swift */; };
+		E52B2C6220D59B4200B05B4F /* ForgotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B2C6120D59B4200B05B4F /* ForgotViewController.swift */; };
 		E5360E0920C2EF3900E5EFDD /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5360E0820C2EF3900E5EFDD /* MainController.swift */; };
 		E5360E2F20C40B3E00E5EFDD /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5360E2E20C40B3E00E5EFDD /* FirebaseController.swift */; };
 		E555F90E20C0201100C89FAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555F90D20C0201100C89FAD /* AppDelegate.swift */; };
@@ -60,6 +61,7 @@
 		E52B2C5B20D1999000B05B4F /* headerCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = headerCollectionReusableView.swift; sourceTree = "<group>"; };
 		E52B2C5D20D2451B00B05B4F /* WeekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekViewController.swift; sourceTree = "<group>"; };
 		E52B2C5F20D2DCDF00B05B4F /* weekTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weekTableViewCell.swift; sourceTree = "<group>"; };
+		E52B2C6120D59B4200B05B4F /* ForgotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotViewController.swift; sourceTree = "<group>"; };
 		E5360E0820C2EF3900E5EFDD /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		E5360E2E20C40B3E00E5EFDD /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		E555F90A20C0201100C89FAD /* pami.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pami.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -182,6 +184,7 @@
 				E52B2C5B20D1999000B05B4F /* headerCollectionReusableView.swift */,
 				E52B2C5D20D2451B00B05B4F /* WeekViewController.swift */,
 				E52B2C5F20D2DCDF00B05B4F /* weekTableViewCell.swift */,
+				E52B2C6120D59B4200B05B4F /* ForgotViewController.swift */,
 			);
 			path = pami;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				E5360E2F20C40B3E00E5EFDD /* FirebaseController.swift in Sources */,
 				E5709A6F20CC0A5E00C4766D /* ContactsViewController.swift in Sources */,
 				E5709A7D20CEFD7500C4766D /* InterestsTableViewCell.swift in Sources */,
+				E52B2C6220D59B4200B05B4F /* ForgotViewController.swift in Sources */,
 				E5D4937F20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift in Sources */,
 				E5709A8320CFF09E00C4766D /* ClockTableViewCell.swift in Sources */,
 				E5709A7F20CF0AD200C4766D /* Interests.swift in Sources */,

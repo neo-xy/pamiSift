@@ -16,6 +16,8 @@ class UpcommmingShiftRowTableViewCell: UITableViewCell {
     @IBOutlet weak var departmentLabel: UILabel!
     @IBOutlet weak var extraInfoLabel: UILabel!
     @IBOutlet weak var extraInfoMsg: UILabel!
+    @IBOutlet weak var cardContainer: UIView!
+    
     
     @IBOutlet weak var shiftMark: UIView!
     @IBOutlet weak var viewContainer: UIView!

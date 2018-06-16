@@ -5,10 +5,7 @@ import JTAppleCalendar
 
 class WeekViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
-    struct Section {
-       var  sectionName:String = ""
-        var sectionsShiffts : [Shift] = []
-    }
+
     
     var departments:[String] = []
     
@@ -17,12 +14,13 @@ class WeekViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var df = DateFormatter()
     
+    var pickedDate:Date = Date()
+    var employeesShifts:[Shift] = []
+    
     @IBOutlet weak var weekLabel:UILabel!
 
     @IBOutlet weak var tableView: UITableView!
-    
-    var pickedDate:Date = Date()
-    var employeesShifts:[Shift] = []
+
     @IBOutlet var collectionView : JTAppleCalendarView!
     
     
@@ -198,6 +196,7 @@ extension WeekViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
         }
         
         tableView.reloadData()
+       cell?.bounce()
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
@@ -222,4 +221,16 @@ extension WeekViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
     
     }
    
+}
+
+
+extension UIView{
+    func bounce(){
+        
+          self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.beginFromCurrentState, animations: {
+            self.transform = CGAffineTransform(scaleX: 1, y: 1)
+        })
+        
+    }
 }

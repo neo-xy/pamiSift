@@ -11,18 +11,53 @@ import FirebaseAuth
 
 class ViewController: UIViewController {
     
+ 
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var emailField: UITextField!
 
+    @IBOutlet weak var bg: UIView!
     
+
+    @IBAction func onForgotClicked(_ sender: Any) {
+         performSegue(withIdentifier: "forgot", sender: self)
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//
+//        var img = UIImage(named: "moon2")
+//        var iv = UIImageView(image: img)
+//
+//        iv.frame = CGRect.init(x: 0, y: 0, width: 50, height: 50)
+//
+//        iv.center = self.view.center
+//
+//        self.view.insertSubview(iv, at: 1)
+//
+//        let gradient: CAGradientLayer = CAGradientLayer()
+//
+//        gradient.colors = [UIColor(named: "pamiOrange")?.cgColor, UIColor(named: "pamiRed")?.cgColor]
+//        gradient.locations = [0.0 , 1.0]
+//        gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
+//        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+//        gradient.frame = CGRect(x: 0.0, y: 0.0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+//
+//
+//        self.view.layer.insertSublayer(gradient, at: 0)
+//        
 
         
       
         
     }
+   
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "forgot"){
+            var weekController = segue.destination as! ForgotViewController
+            
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         passwordField.borderStyle = .none
         emailField.borderStyle = .none

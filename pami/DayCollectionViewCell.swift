@@ -15,5 +15,5 @@ class DayCollectionViewCell: JTAppleCell {
     @IBOutlet weak var workDayMark: UIView!
     @IBOutlet weak var notAvailableDay: UIView!
     @IBOutlet weak var dateLabel:UILabel!
-    
+    @IBOutlet weak var selectedDate: UIView!
 }
