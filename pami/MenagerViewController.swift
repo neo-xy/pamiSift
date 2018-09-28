@@ -55,11 +55,12 @@ class MenagerViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.checkMark.isHidden = false
             cell.checkMark.image = cell.checkMark.image!.withRenderingMode(.alwaysTemplate)
             cell.checkMark.tintColor = UIColor.white
+        
             
             activeShifts.forEach { (activeShift) in
                 if(activeShift.employeeId == employees[indexPath.row].employeeId){
                     df.dateFormat = "MM/dd HH:mm"
-                    cell.timeLabel.text = df.string(from: Date(timeIntervalSince1970: TimeInterval(activeShift.timeStempIn)))
+                    cell.timeLabel.text = df.string(from: activeShift.startDate)
                 }
             }
         }else{
@@ -88,7 +89,7 @@ class MenagerViewController: UIViewController, UITableViewDelegate, UITableViewD
                 for var shift in self.activeShifts {
                     if(shift.employeeId == self.employees[indexPath.row].employeeId){
                         shift.messageOut = "Utstämplad utav " + FirebaseController.user.firstName + " " + FirebaseController.user.lastName
-                        shift.timeStempOut = Int(Date().timeIntervalSince1970)
+                        shift.endDate = Date()
                         FirebaseController.clockOutShift(clockShift: shift)
                     }
                 }
@@ -111,7 +112,7 @@ class MenagerViewController: UIViewController, UITableViewDelegate, UITableViewD
                 clockInShift.firstName = employee.firstName
                 clockInShift.lastName = employee.lastName
                 clockInShift.messageIn = "instämplad av " + FirebaseController.user.firstName + " " + FirebaseController.user.lastName
-                clockInShift.timeStempIn =  Int(Date().timeIntervalSince1970)
+                clockInShift.startDate =  Date()
                 FirebaseController.clockInShift(clockInShift: clockInShift)
             }
             alertView2.addAction(cancel)

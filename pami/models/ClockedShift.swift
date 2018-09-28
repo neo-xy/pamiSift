@@ -15,6 +15,23 @@ struct ClockedShift{
     clockedShiftId = "",
     messageIn = "",
     messageOut = "",
-    timeStempIn = 0,
-    timeStempOut = 0
+    startDate = Date(),
+    endDate = Date(),
+    logs :[ShiftLog] = []
+   
+    
 }
+
+
+struct ShiftLog{
+    var startDate:Date = Date(),
+    endDate:Date = Date(),
+    bossId:String = "",
+    bossFirstName = "",
+    bossLastName = "",
+    message = "",
+    date:Date = Date(),
+    shiftStatus = 1,
+    bossSocialNumber = ""
+}
+

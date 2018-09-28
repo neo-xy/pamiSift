@@ -25,9 +25,9 @@ struct User {
     accountNr = "",
     bankName = "",
     clearNr = "",
-    role = "",
+    role = 1,
     phoneNumber = "",
-    socialSecurityNumber = 0,
+    socialSecurityNumber = "",
     companyName = ""
     
 //    init(firstNam:String, lastNam:String) {
@@ -46,3 +46,8 @@ struct Salary{
 
 }
 
+enum RoleType:Int {
+    case Boss = 0
+    case Employee
+    case Accountant
+}

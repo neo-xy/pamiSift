@@ -28,19 +28,24 @@ struct Shift{
     holidayCompensation = 0,
     message = "",
     netto = 0,
-    shiftStatus = "",
+    shiftStatus = 0,
     tax = 0,
-    timeStemp = 0,
-    timeStempIn = 0,
-    timeStempOut = 0,
     vat = 0,
     shiftId = "",
     messageIn = "",
     messageOut = ""
     
-    
 }
 struct Department{
     var color = "",
     id = ""
+}
+
+
+enum ShiftStatus:Int {
+    case Scheduled = 0
+    case Active
+    case Accepted
+     case Rejected
+    case ClockedOut
 }

@@ -5,8 +5,6 @@ import JTAppleCalendar
 
 class WeekViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
-
-    
     var departments:[String] = []
     
     
@@ -155,7 +153,10 @@ extension WeekViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
         let start = df.date(from: "2018 01 01")!
         let end = df.date(from: "2018 12 31")!
         
-        let params = ConfigurationParameters(startDate: start, endDate: end, numberOfRows: 1, calendar: nil, generateInDates: nil, generateOutDates: nil, firstDayOfWeek: DaysOfWeek.monday, hasStrictBoundaries: false)
+         var cal = Calendar.init(identifier: Calendar.Identifier.gregorian)
+        
+        let params = ConfigurationParameters(startDate: start, endDate: end, numberOfRows: 1, calendar: cal, generateInDates: InDateCellGeneration.off, generateOutDates: OutDateCellGeneration.off, firstDayOfWeek: DaysOfWeek.monday, hasStrictBoundaries: false)
+      
         
         return params
     }
@@ -224,13 +225,4 @@ extension WeekViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
 }
 
 
-extension UIView{
-    func bounce(){
-        
-          self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.beginFromCurrentState, animations: {
-            self.transform = CGAffineTransform(scaleX: 1, y: 1)
-        })
-        
-    }
-}
+

@@ -12,6 +12,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import RxSwift
 
+
 class FirebaseController{
     
     static var user = User()
@@ -20,7 +21,6 @@ class FirebaseController{
     
     
     static func setUpUser() -> Observable<Bool>{
-        
         let db = Firestore.firestore()
         let settings = db.settings
         settings.areTimestampsInSnapshotsEnabled = true
@@ -40,7 +40,7 @@ class FirebaseController{
                 user.phoneNumber = snapshot?.get("phoneNumber") as! String
                 user.accountNr = snapshot?.get("accountNr") as! String
                 user.bankName = snapshot?.get("bankName") as! String
-                user.socialSecurityNumber = snapshot?.get("socialSecurityNumber") as! Int
+                user.socialSecurityNumber = snapshot?.get("socialSecurityNumber") as! String
                 user.email = snapshot?.get("email") as! String
                 user.employeeId = id!
                 
@@ -77,7 +77,7 @@ class FirebaseController{
     
     static func getUserShifts() -> Observable<[Shift]>{
         return Observable.create({ (sub) -> Disposable in
-            Firestore.firestore().collection("users").document(self.user.employeeId).collection("shifts").addSnapshotListener({ (snapshot, error) in
+            Firestore.firestore().collection("users").document(self.user.employeeId).collection("scheduledShifts").addSnapshotListener({ (snapshot, error) in
                 var shifts:[Shift] = []
                 
                 for snap:QueryDocumentSnapshot in snapshot!.documents{
@@ -85,10 +85,7 @@ class FirebaseController{
                     
                     shift.firstName = snap.data()["firstName"] as! String
                     shift.lastName = snap.get("lastName") as! String
-                    shift.OBhours = snap.get("OBhours") as! Double
-                    shift.OBmoney = snap.get("OBmoney") as! Int
-                    shift.OBnattHours = snap.get("OBnattHours") as! Double
-                    shift.OBnattMoney = snap.get("OBnattMoney") as! Int
+                
                     shift.basePay = snap.get("basePay") as! Int
                     shift.brutto = snap.get("brutto") as! Int
                     shift.duration = snap.get("duration") as! Double
@@ -100,7 +97,10 @@ class FirebaseController{
                     shift.holidayCompensation = snap.get("holidayCompensation") as! Int
                     shift.message = snap.get("message") as! String
                     shift.netto = snap.get("netto") as! Int
-                    shift.shiftStatus = snap.get("shiftStatus") as! String
+                    if(snap.get("shiftStatus") != nil){
+                        shift.shiftStatus = snap.get("shiftStatus") as! Int
+                    }
+                    
                     shift.shiftId =  snap.documentID
                     var department = Department()
                     department.color = ((snap.data()["department"] as!  NSMutableDictionary).value(forKey: "color")) as! String
@@ -117,38 +117,47 @@ class FirebaseController{
     
     static func getAcceptedShifts() -> Observable<[Shift]>{
         return  Observable.create { (sub) -> Disposable in
-            Firestore.firestore().collection("users").document(user.employeeId).collection("acceptedShifts").addSnapshotListener({ (snapshot, error) in
+            Firestore.firestore().collection("users").document(user.employeeId).collection("shifts").addSnapshotListener({ (snapshot, error) in
                 
                 var shifts:[Shift] = []
                 
                 for snap:QueryDocumentSnapshot in snapshot!.documents{
-                    var shift = Shift()
                     
-                    shift.firstName = (snap.data()["firstName"] ?? "") as! String
-                    shift.lastName = (snap.get("lastName") ?? "") as! String
-                    shift.OBhours = snap.get("OBhours") as! Double
-                    shift.OBmoney = snap.get("OBmoney") as! Int
-                    shift.OBnattHours = snap.get("OBnattHours") as! Double
-                    shift.OBnattMoney = snap.get("OBnattMoney") as! Int
-                    shift.basePay = snap.get("basePay") as! Int
-                    shift.brutto = snap.get("brutto") as! Int
-                    shift.duration = snap.get("duration") as! Double
-                    shift.employeeId = snap.get("employeeId") as! String
-                    shift.employeeSalary = snap.get("employeeSalary") as! Int
-                    shift.employmentType =  (snap.get("employmentType") ?? "" )as! String
-                    shift.endDate = (snap.get("endDate") as! Timestamp).dateValue()
-                    shift.startDate = (snap.get("startDate") as! Timestamp).dateValue()
-                    shift.holidayCompensation = snap.get("holidayCompensation") as! Int
-                    shift.message = snap.get("message") as! String
-                    shift.netto = snap.get("netto") as! Int
-                    shift.shiftStatus = snap.get("shiftStatus") as! String
-                    shift.shiftId =  snap.documentID
-                    var department = Department()
-                    department.color = ((snap.data()["department"] as!  NSMutableDictionary).value(forKey: "color")) as! String
-                    department.id = ((snap.data()["department"] as!  NSMutableDictionary).value(forKey: "id")) as! String
-                    
-                    shift.department = department
-                    shifts.append(shift)
+                    print("status "+String(ShiftStatus.Accepted.rawValue))
+                       print("ssss "+String(snap.get("shiftStatus") as! Int))
+                    if(snap.get("shiftStatus") as! Int==ShiftStatus.Accepted.rawValue){
+                        print("iffff")
+                        var shift = Shift()
+                        shift.firstName = (snap.data()["firstName"] ?? "") as! String
+                        shift.lastName = (snap.get("lastName") ?? "") as! String
+                        shift.OBhours = snap.get("OBhours") as? Double ?? 0
+                        shift.OBmoney = snap.get("OBmoney") as? Int ?? 0
+                        shift.OBnattHours = snap.get("OBnattHours") as? Double ?? 0
+                        shift.OBnattMoney = snap.get("OBnattMoney") as? Int ?? 0
+                        shift.basePay = snap.get("basePay") as! Int
+                        shift.brutto = snap.get("brutto") as! Int
+                        shift.duration = snap.get("duration") as! Double
+                        shift.employeeId = snap.get("employeeId") as! String
+                        shift.employeeSalary = snap.get("employeeSalary") as! Int
+                        shift.employmentType =  (snap.get("employmentType") ?? "" )as! String
+                        shift.endDate = (snap.get("endDate") as! Timestamp).dateValue()
+                        shift.startDate = (snap.get("startDate") as! Timestamp).dateValue()
+                        shift.holidayCompensation = snap.get("holidayCompensation") as! Int
+                        shift.message = snap.get("message") as? String ?? ""
+                        shift.netto = snap.get("netto") as! Int
+                        shift.shiftStatus = snap.get("shiftStatus") as! Int
+                        shift.shiftId =  snap.documentID
+                        var department = Department()
+                        if(snap.data()["department"] as? NSMutableDictionary != nil){
+                            department.color = ((snap.data()["department"] as!  NSMutableDictionary).value(forKey: "color")) as! String
+                            department.id = ((snap.data()["department"] as!  NSMutableDictionary).value(forKey: "id")) as! String
+                        }
+                       
+                        
+                        shift.department = department
+                        shifts.append(shift)
+                    }
+              
                 }
                 sub.onNext(shifts)
             })
@@ -166,9 +175,11 @@ class FirebaseController{
                 user.lastName = snapshot.get("lastName") as! String
                 user.phoneNumber = snapshot.get("phoneNumber") as! String
                 user.email = snapshot.get("email") as! String
-                user.role = snapshot.get("role") as! String
+                user.role = snapshot.get("role") as! Int
+              
+                
                 user.employeeId = snapshot.get("employeeId") as! String
-                user.socialSecurityNumber = snapshot.get("socialSecurityNumber") as! Int
+                user.socialSecurityNumber = snapshot.get("socialSecurityNumber") as! String
                 employees.append(user)
             }
         })
@@ -185,7 +196,10 @@ class FirebaseController{
                 shift.endDate = (snapshot.get("endDate") as! Timestamp).dateValue()
                 shift.departmentName = snapshot.get("departmentName") as! String
                 shift.id = snapshot.documentID
-                shiftsToTake.append(shift)
+                if(shift.startDate > Date()){
+                     shiftsToTake.append(shift)
+                }
+               
             }
             sub.onNext(shiftsToTake)
         })
@@ -208,7 +222,6 @@ class FirebaseController{
                 shiftsToTake.append(shift)
             }
             self.shiftsToTake =  shiftsToTake
-            print("to take \(shiftsToTake.count)")
         })
     }
     
@@ -230,7 +243,6 @@ class FirebaseController{
                     
                 }
                 obs.onNext(interests)
-                print("eee \(interests.count)")
             })
             return Disposables.create()
         }
@@ -255,12 +267,11 @@ class FirebaseController{
                     for snapshot in (snapshots?.documents)!{
                         var clockShift = ClockedShift()
                         clockShift.clockedShiftId = snapshot.documentID
-                        print(snapshot.documentID)
                         clockShift.employeeId =  snapshot.get("employeeId") as! String
                         clockShift.firstName = snapshot.get("firstName") as! String
                         clockShift.lastName = snapshot.get("lastName") as! String
-                        clockShift.timeStempIn = snapshot.get("timeStempIn") as! CLong
                         clockShift.messageIn = snapshot.get("messageIn") as!String
+                        clockShift.startDate = (snapshot.get("startDate") as! Timestamp).dateValue()
                         
                         activeShifts.append(clockShift)
                     }
@@ -271,9 +282,8 @@ class FirebaseController{
         }
     }
     static func clockOutShift(clockShift:ClockedShift){
-        print("clockoutshift \(clockShift.clockedShiftId)")
         Firestore.firestore().collection("companies").document(user.companyId).collection("activeShifts").document(clockShift.clockedShiftId).delete { (error) in
-            print(error)
+
             if(error == nil){
                   addToShiftToAccept(shift: clockShift)
             }
@@ -281,39 +291,44 @@ class FirebaseController{
     }
     
     static func clockInShift(clockInShift:ClockedShift){
-        let doc:[String : Any] = ["employeeId":clockInShift.employeeId, "firstName":clockInShift.firstName, "lastName":clockInShift.lastName, "messageIn":clockInShift.messageIn, "timeStempIn":clockInShift.timeStempIn]
-        
-        print("rr \(doc)")
+        let doc:[String : Any] = ["employeeId":clockInShift.employeeId, "firstName":clockInShift.firstName, "lastName":clockInShift.lastName, "messageIn":clockInShift.messageIn, "startDate":clockInShift.startDate]
+
         Firestore.firestore().collection("companies").document(user.companyId)
             .collection("activeShifts").addDocument(data: doc)
     }
     
     static func addToShiftToAccept(shift:ClockedShift){
-        let doc:[String:Any] = ["employeeId":user.employeeId, "firstName":shift.firstName, "lastName":shift.lastName, "messageIn":shift.messageIn, "messageOut":shift.messageOut, "timeStempIn":shift.timeStempIn, "timeStempOut":shift.timeStempOut]
+        let doc = ["employeeId":user.employeeId, "firstName":shift.firstName, "lastName":shift.lastName, "messageIn":shift.messageIn, "messageOut":shift.messageOut, "startDate":shift.startDate, "endDate":shift.endDate,
+                   "logs":[
+                    ["startDate":shift.logs[0].startDate,
+                        "endDate":shift.logs[0].endDate,
+                        "shiftStatus" : shift.logs[0].shiftStatus,
+                        "bossId" : shift.logs[0].bossId,
+                        "bossFirstName" : shift.logs[0].bossFirstName,
+                        "bossLastName" : shift.logs[0].bossLastName,
+                        "bossSocialNumber" : shift.logs[0].bossSocialNumber,
+                        "date":shift.logs[0].date
+                    ]
+            ]] as [String : Any]
+        
         Firestore.firestore().collection("companies").document(user.companyId).collection("shiftsToAccept").addDocument(data: doc)
+        
+        
+        
     }
     
-    static func getEmployeesShiftsOfMonth(date:Date) -> Observable<[Shift]>{
-        var df = DateFormatter()
-        df.dateFormat = "yyyyMM"
-        var key = df.string(from: date)
-        print("key \(key)")
-        
+    static func getEmployeesShiftsOfMonth() -> Observable<[Shift]>{
         return Observable.create({ (sub) -> Disposable in
-           
-            var shifts :[Shift] = []
-            Firestore.firestore().collection("companies").document(user.companyId).collection("months").document(key).collection("shifts").addSnapshotListener({ (snapshots, error) in
+           Firestore.firestore().collection("companies").document(user.companyId).collection("scheduledShifts").addSnapshotListener({ (snapshots, error) in
+                
+                var shifts :[Shift] = []
+                shifts.removeAll()
                 for snap in snapshots!.documents{
                     var shift = Shift()
                     
                     shift.firstName = snap.data()["firstName"] as! String
                     shift.lastName = snap.get("lastName") as! String
-                    shift.OBhours = snap.get("OBhours") as! Double
-                    shift.OBmoney = snap.get("OBmoney") as! Int
-                    shift.OBnattHours = snap.get("OBnattHours") as! Double
-                    shift.OBnattMoney = snap.get("OBnattMoney") as! Int
-                    shift.basePay = snap.get("basePay") as! Int
-                    shift.brutto = snap.get("brutto") as! Int
+                    
                     shift.duration = snap.get("duration") as! Double
                     shift.employeeId = snap.get("employeeId") as! String
                     shift.employeeSalary = snap.get("employeeSalary") as! Int
@@ -322,8 +337,10 @@ class FirebaseController{
                     shift.startDate = (snap.get("startDate") as! Timestamp).dateValue()
                     shift.holidayCompensation = snap.get("holidayCompensation") as! Int
                     shift.message = snap.get("message") as! String
-                    shift.netto = snap.get("netto") as! Int
-                    shift.shiftStatus = snap.get("shiftStatus") as! String
+                    if(snap.get("shiftStatus") != nil){
+                         shift.shiftStatus = snap.get("shiftStatus") as! Int
+                    }
+                   
                     shift.shiftId =  snap.documentID
                     var department = Department()
                     department.color = ((snap.data()["department"] as!  NSMutableDictionary).value(forKey: "color")) as! String
@@ -338,20 +355,126 @@ class FirebaseController{
         })
     }
     
-    static func getUnavailableDates() -> Observable<[Date]>{
-       return Observable.create { (sub) -> Disposable in
-        
+    static func getUnavailableDates() -> Observable<[UnavailableDate]>{
+       return Observable.create { (sub) -> Disposable in        
         Firestore.firestore().collection("users").document(user.employeeId).collection("datesUnavailable").addSnapshotListener({ (snapshots, error) in
             
-            var dates: [Date] = []
+            var uds: [UnavailableDate] = []
             for snap in (snapshots?.documents)!{
-                let date = (snap.get("date") as! Timestamp).dateValue()
-                dates.append(date)
+                var ud = UnavailableDate()
+                ud.date = (snap.get("date") as! Timestamp).dateValue()
+                ud.id = snap.documentID
+                ud.employeeId = snap.get("employeeId") as! String
+                ud.markDate = (snap.get("markDate") as! Timestamp).dateValue()
+                ud.message = snap.get("message") as! String
+                uds.append(ud)
             }
-            sub.onNext(dates)
+            sub.onNext(uds)
         })
             return Disposables.create()
         }
     }
     
+    static func addUnavailableDate(ud:UnavailableDate){
+        let doc = [
+            "employeeId": ud.employeeId,
+            "date":ud.date,
+            "id":ud.id,
+            "markDate":ud.markDate,
+            "message":ud.message
+            ] as [String : Any]
+        Firestore.firestore().collection("companies").document(user.companyId).collection("datesUnavailable").addDocument(data: doc).addSnapshotListener { (snapShot, error) in
+            Firestore.firestore().collection("users").document(user.employeeId).collection("datesUnavailable").document((snapShot?.documentID)!).setData(doc)
+        }
+    }
+    
+    static func removedUnavailable(id:String){
+    Firestore.firestore().collection("companies").document(user.companyId).collection("datesUnavailable").document(id).delete()
+    Firestore.firestore().collection("users").document(user.employeeId).collection("datesUnavailable").document(id).delete()
+    }
+    
+    static func getCompany()-> Observable<Company>{
+        return Observable.create{ (sub) -> Disposable in
+            Firestore.firestore().collection("companies").document(user.companyId).addSnapshotListener({ (snap, error) in
+                var address = snap?.get("gpsLocation") as! Any
+
+                var comp:Company = Company()
+                
+            })
+             return Disposables.create()
+        }
+    }
+    
+    
+    static func getSalariesSpec()->Observable<[SalarySpecification]>{
+        return Observable.create{(sub)->Disposable in
+            Firestore.firestore().collection("users").document(self.user.employeeId).collection("salarySpec").addSnapshotListener({ (snapshots, error) in
+                
+                var specifications :[SalarySpecification] = []
+                for snap in (snapshots?.documents)! {
+                    var spec = SalarySpecification()
+                    spec.brutto = snap.get("brutto") as! Int
+                    spec.netto = snap.get("netto") as! Int
+                    spec.path = snap.get("path") as! String
+                    spec.id = snap.documentID
+                    specifications.append(spec)
+                }
+             
+                sub.onNext(specifications)
+            })
+            return Disposables.create()
+        }
+        
+    }
+    
+    static func getPdf(path:String){
+        print("1111")
+        let ref = Storage.storage().reference().child(path)
+        print(ref)
+        
+//        ref.getData(maxSize: 1024*1024){data,error in
+//            if let error = error{
+//
+//            }else{
+//                let pdf =
+//            }
+//        }
+        
+        ref.downloadURL { (url, error) in
+          print("2222")
+            if(error != nil){
+                print(error!)
+            }
+            
+            print("else")
+            // Converting string to URL Object
+            let urlStr = url?.absoluteString
+            let url = URL(string: urlStr!)
+            
+            // Get the PDF Data form the Url in a Data Object
+            let pdfData = try? Data.init(contentsOf: url!)
+            
+            print(pdfData?.count)
+            let resourceDocPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last as! URL
+            
+            // The New Directory/folder name
+            let newPath = resourceDocPath.appendingPathComponent("QMSDocuments")
+            
+            // Creating the New Directory inside Documents Directory
+            do {
+                try FileManager.default.createDirectory(atPath: newPath.path, withIntermediateDirectories: true, attributes: nil)
+            } catch let error as NSError {
+                NSLog("Unable to create directory \(error.debugDescription)")
+            }
+            
+            // Split the url into a string Array by separator "/" to get the pdf name
+            let  pdfNameFromUrlArr = "eeee.pdf"
+            
+            // Appending to the newly created directory path with the pdf name
+           let actualPath = newPath.appendingPathComponent(pdfNameFromUrlArr)
+            print("rrrr")
+            print(actualPath)
+        }
+    
+    }
 }

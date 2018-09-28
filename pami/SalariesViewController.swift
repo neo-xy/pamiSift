@@ -10,6 +10,18 @@ import UIKit
 
 class SalariesViewController: UIViewController , UITableViewDelegate, UITableViewDataSource{
     
+    
+    @IBOutlet weak var pdfBtn: UIButton!
+    @IBAction func pdfBtnClick(_ sender: Any) {
+        df.dateFormat = "yyyyMM"
+        self.salarySpecifications.forEach { (spec) in
+            if(spec.id == self.df.string(from: self.now)){
+                FirebaseController.getPdf(path: spec.path)
+                
+                return
+            }
+        }
+    }
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var currentMonthLabel: UILabel!
     var acceptedShifts:[Shift] = []
@@ -22,6 +34,8 @@ class SalariesViewController: UIViewController , UITableViewDelegate, UITableVie
     var monthTotalPay = 0
     var monthTotalNetto = 0
     var monthTotalBrutto = 0
+    var salarySpecifications:[SalarySpecification] = []
+    
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -31,6 +45,13 @@ class SalariesViewController: UIViewController , UITableViewDelegate, UITableVie
         df.dateFormat = "MMMM"
         df.locale = Locale(identifier: "sv")
         currentMonthLabel.text = df.string(from: now)
+        
+       _ = FirebaseController.getSalariesSpec().subscribe{event in
+        self.salarySpecifications = event.element as! [SalarySpecification]
+        
+        }
+       
+        self.pdfBtn.layer.cornerRadius = 4
         
         _ = FirebaseController.getAcceptedShifts().subscribe { (event) in
             self.acceptedShifts = event.element!
@@ -44,28 +65,37 @@ class SalariesViewController: UIViewController , UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("count \(currentShifts.count)")
       
         return (currentShifts.count + 2)
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cel = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! salaryTableViewCell
         
         if((currentShifts.count ) == indexPath.row){
+            df.dateFormat = "yyyyMM"
+        
+            
+            
             cel.dayCell.text = ""
             cel.startCell.text = ""
             cel.endCell.text = ""
-            cel.durationCell.text = String(self.monthTotalHours)
+            cel.durationCell.text = String(Double(round(self.monthTotalHours*100)/100))
             cel.payCell.text = ""
             cel.durationCell.font = UIFont.boldSystemFont(ofSize: 16.0)
             cel.payCell.font = UIFont.boldSystemFont(ofSize: 16.0)
         } else if((currentShifts.count + 1) == indexPath.row){
+             cel.payCell.text = String(self.monthTotalNetto)
+            self.salarySpecifications.forEach { spec in
+                if(spec.id==df.string(from: now)){
+                    cel.payCell.text = String(spec.netto)
+                    return
+                }
+            }
             cel.dayCell.text = ""
             cel.endCell.text = ""
             cel.startCell.text = ""
             cel.durationCell.text = "Netto"
-            cel.payCell.text = String(self.monthTotalNetto)
+        
             cel.durationCell.font = UIFont.boldSystemFont(ofSize: 16.0)
               cel.payCell.font = UIFont.boldSystemFont(ofSize: 16.0)
         }else{
@@ -93,7 +123,7 @@ class SalariesViewController: UIViewController , UITableViewDelegate, UITableVie
         monthTotalBrutto = 0
         
         let calNowMonth =   calNow.component(Calendar.Component.month, from: date)
-        
+        print("count accepted shifts" + String(self.acceptedShifts.count))
         acceptedShifts.forEach { (shift) in
             let month = calNow.component(Calendar.Component.month, from: shift.startDate)
             if( month == calNowMonth){
@@ -104,16 +134,27 @@ class SalariesViewController: UIViewController , UITableViewDelegate, UITableVie
                 self.monthTotalBrutto = self.monthTotalBrutto + shift.brutto
             }
         }
-        _ = acceptedShifts.sorted { (a, b) -> Bool in
+       self.acceptedShifts = acceptedShifts.sorted { (a, b) -> Bool in
             return a.startDate < b.startDate
         }
-        totalLabel.text = String(self.monthTotalBrutto) + " sek"
+        self.df.dateFormat = "yyyyMM"
+        self.salarySpecifications.forEach { (spec) in
+            if(spec.id==self.df.string(from: now)){
+                totalLabel.text = String(spec.brutto) + " sek"
+                return
+            }
+        }
+        
+//        totalLabel.text = String(self.monthTotalBrutto) + " sek"
         tableView.reloadData()
     }
     
     @IBAction func onPreviewsMonthClicked(_ sender: UIButton) {
         self.df.dateFormat = "MMMM"
+        print("prev")
        
+        
+        
         now = Calendar.current.date(byAdding: .month, value: -1, to: now)!
         df.locale = Locale(identifier: "sv")
         currentMonthLabel.text = df.string(from: now)
@@ -123,6 +164,7 @@ class SalariesViewController: UIViewController , UITableViewDelegate, UITableVie
     }
     @IBAction func onNextMonthClicked(_ sender: UIButton) {
         df.dateFormat = "MMMM yyyy"
+        print("next")
      
         now = Calendar.current.date(byAdding: .month, value: +1, to: now)!
         df.locale = Locale(identifier: "sv")

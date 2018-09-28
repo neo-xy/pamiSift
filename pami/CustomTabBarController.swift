@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomTabBarController: UITabBarController {
+class CustomTabBarController: UITabBarController, UITabBarControllerDelegate, UINavigationControllerDelegate {
     var shiftsToTake:[ShiftToTake] = []
 
     override func viewDidLoad() {
@@ -17,16 +17,19 @@ class CustomTabBarController: UITabBarController {
         var label = UILabel()
         label.text = "MER"
         
+        self.delegate = self
 
         self.moreNavigationController.navigationBar.topItem?.title = "Mer"
         self.moreNavigationController.navigationBar.backgroundColor = UIColor.white
         self.moreNavigationController.topViewController?.view.tintColor = UIColor(named: "primaryDark")
        (self.moreNavigationController.topViewController?.view as! UITableView).separatorStyle = UITableViewCellSeparatorStyle.none
         
+        self.moreNavigationController.delegate = self
         
        
         
         self.tabBar.tintColor = UIColor(named: "primaryDark")
+
         
         
         FirebaseController.getShiftsToTake().subscribe { (event) in
@@ -41,11 +44,26 @@ class CustomTabBarController: UITabBarController {
         
         // Do any additional setup after loading the view.
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        
+    var id =  viewController.restorationIdentifier
+    
+        if(id == "mee"){
+            return false
+        }else{
+            return true
+        }
+    }
+    
+  
 
 
 }

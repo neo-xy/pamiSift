@@ -32,7 +32,6 @@ class ContactsViewController: UIViewController,UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-          print("employees \(employees.count)")
         return employees.count
     }
     
@@ -44,16 +43,18 @@ class ContactsViewController: UIViewController,UITableViewDelegate, UITableViewD
         cel.nameLabel.text = employees[indexPath.row].firstName + " " + employees[indexPath.row].lastName
         
         
-        if(employees[indexPath.row].role == "boss"){
+        if(employees[indexPath.row].role == RoleType.Boss.rawValue){
+            
+            
             cel.contactRect.layer.backgroundColor = UIColor(named: "primaryColor")?.cgColor
             cel.emailBtn.setTitleColor(UIColor.white, for: .normal)
             cel.phoneBtn.setTitleColor(UIColor.white, for: .normal)
             cel.nameLabel.textColor = UIColor.white
             cel.phoneLabel.textColor = UIColor.white
             cel.emailLabel.textColor = UIColor.white
-        
-        
             
+        
+
         }else{
             cel.contactRect.layer.backgroundColor = UIColor.white.cgColor
             cel.contactRect.layer.borderWidth = 1

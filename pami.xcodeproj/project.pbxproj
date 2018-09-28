@@ -20,6 +20,7 @@
 		E52B2C5E20D2451B00B05B4F /* WeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B2C5D20D2451B00B05B4F /* WeekViewController.swift */; };
 		E52B2C6020D2DCE000B05B4F /* weekTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B2C5F20D2DCDF00B05B4F /* weekTableViewCell.swift */; };
 		E52B2C6220D59B4200B05B4F /* ForgotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B2C6120D59B4200B05B4F /* ForgotViewController.swift */; };
+		E52B2C6420D668CD00B05B4F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B2C6320D668CD00B05B4F /* SettingsViewController.swift */; };
 		E5360E0920C2EF3900E5EFDD /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5360E0820C2EF3900E5EFDD /* MainController.swift */; };
 		E5360E2F20C40B3E00E5EFDD /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5360E2E20C40B3E00E5EFDD /* FirebaseController.swift */; };
 		E555F90E20C0201100C89FAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555F90D20C0201100C89FAD /* AppDelegate.swift */; };
@@ -40,6 +41,8 @@
 		E5709A8520CFF38E00C4766D /* ClockedShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A8420CFF38E00C4766D /* ClockedShift.swift */; };
 		E5709A8720D04F5000C4766D /* MenagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A8620D04F5000C4766D /* MenagerViewController.swift */; };
 		E5709A8920D04F7B00C4766D /* MenagerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5709A8820D04F7B00C4766D /* MenagerTableViewCell.swift */; };
+		E5721BCA215BB99700E54EDA /* SalarySpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5721BC9215BB99700E54EDA /* SalarySpecification.swift */; };
+		E5773D84215D2462008A1FC0 /* UnavailableDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5773D83215D2462008A1FC0 /* UnavailableDate.swift */; };
 		E5B6721B20CB2E6900744157 /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B6721A20CB2E6900744157 /* MyInfoViewController.swift */; };
 		E5D4937D20C9905900AFCACB /* UpcommingShifts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4937C20C9905900AFCACB /* UpcommingShifts.swift */; };
 		E5D4937F20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D4937E20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift */; };
@@ -62,6 +65,7 @@
 		E52B2C5D20D2451B00B05B4F /* WeekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekViewController.swift; sourceTree = "<group>"; };
 		E52B2C5F20D2DCDF00B05B4F /* weekTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weekTableViewCell.swift; sourceTree = "<group>"; };
 		E52B2C6120D59B4200B05B4F /* ForgotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotViewController.swift; sourceTree = "<group>"; };
+		E52B2C6320D668CD00B05B4F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E5360E0820C2EF3900E5EFDD /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		E5360E2E20C40B3E00E5EFDD /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		E555F90A20C0201100C89FAD /* pami.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pami.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +88,8 @@
 		E5709A8420CFF38E00C4766D /* ClockedShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockedShift.swift; sourceTree = "<group>"; };
 		E5709A8620D04F5000C4766D /* MenagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenagerViewController.swift; path = pami/MenagerViewController.swift; sourceTree = SOURCE_ROOT; };
 		E5709A8820D04F7B00C4766D /* MenagerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenagerTableViewCell.swift; sourceTree = "<group>"; };
+		E5721BC9215BB99700E54EDA /* SalarySpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalarySpecification.swift; sourceTree = "<group>"; };
+		E5773D83215D2462008A1FC0 /* UnavailableDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnavailableDate.swift; sourceTree = "<group>"; };
 		E5B6721A20CB2E6900744157 /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
 		E5D4937C20C9905900AFCACB /* UpcommingShifts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcommingShifts.swift; sourceTree = "<group>"; };
 		E5D4937E20C9909F00AFCACB /* UpcommmingShiftRowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcommmingShiftRowTableViewCell.swift; sourceTree = "<group>"; };
@@ -129,6 +135,8 @@
 				E5709A7A20CEF1E100C4766D /* ShiftToTake.swift */,
 				E5709A7E20CF0AD200C4766D /* Interests.swift */,
 				E5709A8420CFF38E00C4766D /* ClockedShift.swift */,
+				E5721BC9215BB99700E54EDA /* SalarySpecification.swift */,
+				E5773D83215D2462008A1FC0 /* UnavailableDate.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -185,6 +193,7 @@
 				E52B2C5D20D2451B00B05B4F /* WeekViewController.swift */,
 				E52B2C5F20D2DCDF00B05B4F /* weekTableViewCell.swift */,
 				E52B2C6120D59B4200B05B4F /* ForgotViewController.swift */,
+				E52B2C6320D668CD00B05B4F /* SettingsViewController.swift */,
 			);
 			path = pami;
 			sourceTree = "<group>";
@@ -290,12 +299,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-pami/Pods-pami-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
@@ -306,12 +316,13 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
@@ -331,7 +342,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E52B2C5E20D2451B00B05B4F /* WeekViewController.swift in Sources */,
+				E5721BCA215BB99700E54EDA /* SalarySpecification.swift in Sources */,
 				E5709A7520CEA31700C4766D /* salaryTableViewCell.swift in Sources */,
+				E52B2C6420D668CD00B05B4F /* SettingsViewController.swift in Sources */,
 				E5360E2F20C40B3E00E5EFDD /* FirebaseController.swift in Sources */,
 				E5709A6F20CC0A5E00C4766D /* ContactsViewController.swift in Sources */,
 				E5709A7D20CEFD7500C4766D /* InterestsTableViewCell.swift in Sources */,
@@ -357,6 +370,7 @@
 				E5709A8520CFF38E00C4766D /* ClockedShift.swift in Sources */,
 				E5709A8120CFDD5500C4766D /* ClockViewController.swift in Sources */,
 				E5037BF020C8337B00D6763D /* HomeViewController.swift in Sources */,
+				E5773D84215D2462008A1FC0 /* UnavailableDate.swift in Sources */,
 				E5709A7720CEEF0A00C4766D /* InterestsViewViewController.swift in Sources */,
 				E5D4937D20C9905900AFCACB /* UpcommingShifts.swift in Sources */,
 				E51B915B20C6F76500271801 /* InfoMessage.swift in Sources */,
@@ -506,6 +520,7 @@
 			baseConfigurationReference = 3C47DF4F9B1ECC8B700E0CDF /* Pods-pami.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 29F3TAF5KB;
 				INFOPLIST_FILE = pami/Info.plist;
@@ -515,6 +530,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = se.pami;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -525,6 +541,7 @@
 			baseConfigurationReference = 4330D18AF8CAFC1987D3949A /* Pods-pami.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 29F3TAF5KB;
 				INFOPLIST_FILE = pami/Info.plist;
@@ -534,6 +551,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = se.pami;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

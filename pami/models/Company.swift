@@ -9,5 +9,15 @@
 import Foundation
 
 struct Company{
+    var locationType:Int=0
+    var gpsLocation: PamiLocation = PamiLocation()
 
+}
+
+struct PamiLocation{
+    
+    var address:String = ""
+    var latitude:Double = 0.0
+    var longitude:Double = 0.0
+    
 }

@@ -30,16 +30,14 @@ class ContactTableViewCell: UITableViewCell {
     @IBAction func onPhoneNrClicked(_ sender: UIButton) {
         guard let number = sender.title(for: .normal) else {return}
         let url = URL(string: "tel://\(number)")
-        print("phone clicked \(number)")
-        print("can \(UIApplication.shared.canOpenURL(url!))")
+        
         UIApplication.shared.open(url!, options: [:], completionHandler: nil)
     }
     @IBAction func onEmailClicked(_ sender: UIButton) {
         
         guard let number = sender.title(for: .normal) else {return}
         let url = URL(string: "mail://\(number)")
-        print("phone clicked \(number)")
-        print("can \(UIApplication.shared.canOpenURL(url!))")
+      
         UIApplication.shared.open(url!, options: [:], completionHandler: nil)
     }
     

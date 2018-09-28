@@ -5,9 +5,6 @@ import JTAppleCalendar
 
 
 class ScheduleViewController: UIViewController {
-    
-    
-    
     var departments:[String] = []
         var shiftsOfDay:[Shift] = []
     
@@ -21,21 +18,39 @@ class ScheduleViewController: UIViewController {
     var gl : CAGradientLayer!
     
     var userShifts: [Shift] = []
-    var unavailableDates :[Date] = []
+    var unavailableDates :[UnavailableDate] = []
     var shiftsOfMonth: [String:[Shift]]=[:]
     var employeesShifts:[Shift] = []
     
-    @IBAction func onUnavailableClick(_ sender: Any) {
-    }
+    @IBOutlet weak var msgTextField: UITextField!
+    @IBOutlet weak var availableSwitch: UISwitch!
     
-
-    @IBAction func onAvailableClick(_ sender: Any) {
+    @IBAction func availableChanged(_ sender: Any) {
+        var isAvailable =  true
+        unavailableDates.forEach { (ud) in
+            if(areDatesOfTheSameDay(dateOne: ud.date, dateTwo: pickedDate)){
+                print("has smae day")
+                print(ud.id)
+                 FirebaseController.removedUnavailable(id: ud.id)
+                isAvailable = false
+                return
+            }
+        }
+        if(isAvailable == true){
+            var ud = UnavailableDate()
+            ud.date =  pickedDate
+            ud.employeeId = FirebaseController.user.employeeId
+            ud.message = self.msgTextField.text!
+            ud.markDate =  Date()
+        
+            
+            FirebaseController.addUnavailableDate(ud: ud)
+        }
+       
     }
     
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var unavailableBtn: UIButton!
-    @IBOutlet weak var availableBtn: UIButton!
     
   
     @IBOutlet weak var collectionView: JTAppleCalendarView!
@@ -44,15 +59,13 @@ class ScheduleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("viewDidload")
+        
         tableView.delegate = self
         tableView.dataSource = self
-        
-//        availableBtn.layer.borderWidth = 2
-//        availableBtn.layer.borderColor = UIColor(named: "pamiGreen")?.cgColor
-//        
-//        
-//        unavailableBtn.layer.borderWidth = 2
-//        unavailableBtn.layer.borderColor = UIColor(named: "pamiRed")?.cgColor
+        collectionView.minimumLineSpacing = 0
+        collectionView.minimumInteritemSpacing = 0
+        collectionView.scrollToDate(pickedDate)
         
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.isToolbarHidden = true
@@ -60,48 +73,26 @@ class ScheduleViewController: UIViewController {
             self.userShifts = []
             self.userShifts = event.element!
             let lastMonthDate = Calendar.current.date(byAdding: Calendar.Component.month, value: -1, to: Date())
-            self.userShifts.filter({ (shift) -> Bool in
+           self.userShifts = self.userShifts.filter({ (shift) -> Bool in
                 return shift.startDate > lastMonthDate!
             })
-            self.collectionView.reloadData()
         }
-        _ = FirebaseController.getUnavailableDates().subscribe { (event) in
-            self.unavailableDates = []
-            self.unavailableDates = event.element!
-            self.unavailableDates.filter({ (date) -> Bool in
-                return date > Date()
-            })
-            self.collectionView.reloadData()
-        }
+     
         employeesShifts = []
-        for i in 0...2{
-            let date =  Calendar.current.date(byAdding: Calendar.Component.month, value: i, to: Date())
-            var sub = FirebaseController.getEmployeesShiftsOfMonth(date: date!).subscribe { (event) in
-       
+    
+        FirebaseController.getEmployeesShiftsOfMonth().subscribe { (event) in
+            self.employeesShifts.removeAll()
+            print("gg " + String(event.element?.count as! Int))
+            print("eee" + String(self.employeesShifts.count))
                 event.element!.forEach({ (shift) in
                     self.employeesShifts.append(shift)
                 })
-            }
+            self.tableView.reloadData()
         }
-        
-        collectionView.minimumLineSpacing = 0
-        collectionView.minimumInteritemSpacing = 0
-        collectionView.scrollToDate(Date())
         
         shiftsOfDay = []
         departments = []
         section.removeAll()
-        
-        employeesShifts.forEach { (shift) in
-            if(areDatesOfTheSameDay(dateOne: pickedDate, dateTwo: shift.startDate)){
-                shiftsOfDay.append(shift)
-                if(section[shift.department.id] == nil){
-                    section[shift.department.id] = []
-                }
-                
-                section[shift.department.id]?.append(shift)
-            }
-        }
         
         section.keys.forEach { (section) in
             departments.append(section)
@@ -110,9 +101,22 @@ class ScheduleViewController: UIViewController {
         departments.sort { (a, b) -> Bool in
             return a < b
         }
-        tableView.reloadData()
+
+        var index = 0;
+       _ = FirebaseController.getUnavailableDates().subscribe { (event) in
         
-        
+            self.unavailableDates = []
+            self.unavailableDates = event.element!
+            self.unavailableDates = self.unavailableDates.filter({ (ud) -> Bool in
+                return ud.date > Date()
+            })
+    
+        if(index > 0){
+             self.collectionView.reloadData()
+        }
+        index += 1
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -125,7 +129,6 @@ class ScheduleViewController: UIViewController {
         self.navigationController?.isToolbarHidden = true
     }
     
-    
     func setUpCalendarView(dateSegment:DateSegmentInfo){
         guard let date =  dateSegment.monthDates.first?.date else {return}
         df.dateFormat = "MMMM yyyy"
@@ -136,28 +139,30 @@ class ScheduleViewController: UIViewController {
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "toWeek"){
-            var weekController = segue.destination as! WeekViewController
+            let weekController = segue.destination as! WeekViewController
             weekController.pickedDate = pickedDate
             
-            print("eee \(employeesShifts.count)")
             weekController.employeesShifts = employeesShifts
         }
     }
-    
 }
 
 extension ScheduleViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource{
     func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
-        
     }
     
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
+    
         df.dateFormat = "yyyy MM dd"
         let start = df.date(from: "2018 01 01")!
-        let end = df.date(from: "2018 12 31")!
+        let end = df.date(from: "2018 12 30")!
+        let cal = Calendar.init(identifier: Calendar.Identifier.gregorian)
+    
         
-        let params = ConfigurationParameters(startDate: start, endDate: end, numberOfRows: 6, calendar: nil, generateInDates: nil, generateOutDates: nil, firstDayOfWeek: DaysOfWeek.monday, hasStrictBoundaries: false)
+        let params = ConfigurationParameters(startDate: start, endDate: end, numberOfRows: 6, calendar: cal, generateInDates: InDateCellGeneration.forAllMonths, generateOutDates: OutDateCellGeneration.tillEndOfGrid, firstDayOfWeek: DaysOfWeek.monday, hasStrictBoundaries: false)
         
+//        let params = ConfigurationParameters.init(startDate: start, endDate: end)
+            print("config cal")
         return params
     }
     
@@ -165,22 +170,24 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate, JTAppleCalendarVi
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
         
         let cell = collectionView.dequeueReusableJTAppleCell(withReuseIdentifier: "cellS", for: indexPath) as! DayCollectionViewCell
-        
-        if(cell.isSelected){
-            cell.selectedDate.isHidden = false
-        }else{
-            cell.selectedDate.isHidden = true
-        }
+      
         cell.dayNr.text = cellState.text
         df.dateFormat = "yyyy MM dd"
         let now = df.string(from: Date())
         let cellDate = df.string(from: cellState.date)
-        
-        
+
+
         if(cellState.dateBelongsTo == .thisMonth){
             cell.dayNr.textColor = UIColor.white
         }else{
             cell.dayNr.textColor = UIColor.lightGray
+        }
+        
+        if(cellState.isSelected){
+            cell.selectedDate.isHidden = false
+            cell.dayNr.textColor = UIColor(named: "pamiOrange")
+        }else{
+            cell.selectedDate.isHidden = true
         }
         
         if(now == cellDate){
@@ -195,6 +202,7 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate, JTAppleCalendarVi
         cell.workDayMark.isHidden = true
         
         userShifts.forEach { (shift) in
+        
             if(areDatesOfTheSameDay(dateOne: cellState.date, dateTwo: shift.startDate)){
                 cell.workDayMark.isHidden = false
                 cell.workDayMark.layer.borderWidth = 1
@@ -202,20 +210,17 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate, JTAppleCalendarVi
                 return
             }
         }
+        
         cell.notAvailableDay.isHidden = true
-        unavailableDates.forEach { (date) in
-            if(areDatesOfTheSameDay(dateOne: date, dateTwo: cellState.date)){
+        unavailableDates.forEach { (ud) in
+            if(areDatesOfTheSameDay(dateOne: ud.date, dateTwo: cellState.date)){
                 cell.notAvailableDay.isHidden = false
                 cell.notAvailableDay.layer.borderColor = UIColor.white.cgColor
                 cell.notAvailableDay.layer.borderWidth = 1
                 return
             }
         }
-        
-        
-        
         return cell
-        
     }
     func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
         let header = collectionView.dequeueReusableJTAppleSupplementaryView(withReuseIdentifier: "headerS", for: indexPath) as! headerCollectionReusableView
@@ -234,37 +239,39 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate, JTAppleCalendarVi
           guard let validCell = cell as? DayCollectionViewCell else{return}
         
         df.dateFormat = "MM dd"
-        print(df.string(from: date))
         pickedDate = cellState.date
         validCell.selectedDate.isHidden = false
         validCell.dayNr.textColor = UIColor(named: "pamiOrange")
 //        performSegue(withIdentifier: "toWeek", sender: self)
         
+        validCell.selectedDate.layer.masksToBounds = false
+        validCell.selectedDate.layer.shadowColor = UIColor(named: "pamiShadow")?.cgColor
+        validCell.selectedDate.layer.shadowOpacity = 1
+        validCell.selectedDate.layer.shadowOffset = CGSize(width: 0, height: 4)
+        validCell.selectedDate.layer.shadowRadius = 3
         
-    
-        availableBtn.backgroundColor = UIColor(named: "pamiGreen")
-        availableBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
-        unavailableBtn.backgroundColor = UIColor.white
-        unavailableBtn.setTitleColor(UIColor(named: "pamiRed"), for: UIControlState.normal)
-        unavailableDates.forEach { (date) in
-            if(areDatesOfTheSameDay(dateOne: date, dateTwo: cellState.date)){
-              
-                availableBtn.backgroundColor = UIColor.white
-                availableBtn.setTitleColor(UIColor(named: "pamiGreen"), for: UIControlState.normal)
-                unavailableBtn.backgroundColor = UIColor(named: "pamiRed")
-                unavailableBtn.setTitleColor(UIColor.white, for: UIControlState.normal)
+        validCell.selectedDate.layer.shouldRasterize = true
+        validCell.selectedDate.layer.rasterizationScale = true ? UIScreen.main.scale : 1
+        
+        availableSwitch.isOn = true
+        self.msgTextField.isEnabled = true
+        self.msgTextField.text = ""
+        unavailableDates.forEach { (ud) in
+            if(areDatesOfTheSameDay(dateOne: ud.date, dateTwo: cellState.date)){
+                self.availableSwitch.isOn = false
+                self.msgTextField.text = ud.message
+                self.msgTextField.isEnabled = false
                 return
             }
         }
         
-        
         shiftsOfDay = []
         section.removeAll()
         departments = []
+       
         employeesShifts.forEach { (shift) in
             if(areDatesOfTheSameDay(dateOne: cellState.date, dateTwo: shift.startDate)){
                 shiftsOfDay.append(shift)
-                
                 if(section[shift.department.id] == nil){
                     section[shift.department.id] = []
                 }
@@ -281,6 +288,7 @@ extension ScheduleViewController: JTAppleCalendarViewDelegate, JTAppleCalendarVi
             return a < b
         }
         
+        validCell.selectedDate.bounce()
         tableView.reloadData()
     }
     
@@ -303,19 +311,18 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        var depName:String = departments[section]
+        let depName:String = departments[section]
 
         return  (self.section[depName]?.count)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! weekTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! weekTableViewCell
         
+        let depName = departments[indexPath.section]
         
-        var depName = departments[indexPath.section]
-        
-        var shift :Shift = section[depName]![indexPath.row]
+        let shift :Shift = section[depName]![indexPath.row]
         cell.name.text =  shift.firstName + " " + shift.lastName
         cell.department.text =  shift.department.id
         
@@ -334,21 +341,26 @@ extension ScheduleViewController:  UITableViewDelegate, UITableViewDataSource{
         df.dateFormat = "HH:mm"
         cell.time.text =  df.string(from: shift.startDate) + "-" + df.string(from: shift.endDate)
         
-        
         return cell
     }
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        print("name \(self.departments[section])")
         return self.departments[section]
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        print("sec \(departments.count)")
         return departments.count
     }
-    
-    
 }
 
+extension UIView{
+    func bounce(){
+        
+        self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.beginFromCurrentState, animations: {
+            self.transform = CGAffineTransform(scaleX: 1, y: 1)
+        })
+        
+    }
+}

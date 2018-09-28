@@ -1,10 +1,4 @@
-//
-//  ForgotViewController.swift
-//  pami
-//
-//  Created by Pawel  on 2018-06-16.
-//  Copyright © 2018 pami. All rights reserved.
-//
+
 
 import UIKit
 import FirebaseAuth
@@ -14,7 +8,6 @@ class ForgotViewController: UIViewController {
     @IBOutlet weak var email: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,6 +32,6 @@ class ForgotViewController: UIViewController {
                 alertView.addAction(cancel)
                 self.present(alertView, animated: true, completion: nil)
             }
-        } 
+        }
     }
 }

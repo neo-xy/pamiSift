@@ -25,6 +25,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         infoMessageFrame.layer.cornerRadius = 5
         
         upcommingShiftsTableView.delegate = self
@@ -84,16 +85,23 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 //        cel.cardContainer.layer.rasterizationScale = true ? UIScreen.main.scale : 1
         
         cel.extraInfoMsg.text = shifts[indexPath.row].message
+        cel.extraInfoMsg.textColor = hexStringToUIColor(hex: shifts[indexPath.row].department.color).darker(by: 35.0)
         df.dateFormat = "MMM"
         cel.dateMonthLabel.text = df.string(from: shifts[indexPath.row].startDate)
+        cel.dateMonthLabel.textColor = hexStringToUIColor(hex: shifts[indexPath.row].department.color).darker(by: 35.0)
         df.dateFormat = "dd"
         cel.dateNrLabel.text = df.string(from: shifts[indexPath.row].startDate)
+        cel.dateNrLabel.textColor = hexStringToUIColor(hex: shifts[indexPath.row].department.color).darker(by: 35.0)
         cel.departmentLabel.text = shifts[indexPath.row].department.id
+        cel.departmentLabel.textColor = hexStringToUIColor(hex: shifts[indexPath.row].department.color).darker(by: 35.0)
         cel.extraInfoLabel.text = "Extra info:"
+        cel.extraInfoLabel.textColor = hexStringToUIColor(hex: shifts[indexPath.row].department.color).darker(by: 35.0)
         df.dateFormat = "HH:mm"
         cel.shiftTimeSpanLabel.text = df.string(from: shifts[indexPath.row].startDate) + "-" + df.string(from: shifts[indexPath.row].endDate)
+        cel.shiftTimeSpanLabel.textColor = hexStringToUIColor(hex: shifts[indexPath.row].department.color).darker(by: 35.0)
         
-        cel.cardContainer.layer.backgroundColor = hexStringToUIColor(hex: shifts[indexPath.row].department.color).withAlphaComponent(0.5).cgColor
+        
+        cel.cardContainer.layer.backgroundColor = hexStringToUIColor(hex: shifts[indexPath.row].department.color).withAlphaComponent(0.3).cgColor
         
       cel.cardContainer.isOpaque = true
     
@@ -124,4 +132,27 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     
+}
+
+extension UIColor {
+    
+    func lighter(by percentage: CGFloat = 30.0) -> UIColor? {
+        return self.adjust(by: abs(percentage) )
+    }
+    
+    func darker(by percentage: CGFloat = 30.0) -> UIColor? {
+        return self.adjust(by: -1 * abs(percentage) )
+    }
+    
+    func adjust(by percentage: CGFloat = 30.0) -> UIColor? {
+        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        if self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
+            return UIColor(red: min(red + percentage/100, 1.0),
+                           green: min(green + percentage/100, 1.0),
+                           blue: min(blue + percentage/100, 1.0),
+                           alpha: alpha)
+        } else {
+            return nil
+        }
+    }
 }

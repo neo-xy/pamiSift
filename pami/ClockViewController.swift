@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SystemConfiguration.CaptiveNetwork
 
 class ClockViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -25,7 +26,17 @@ class ClockViewController: UIViewController, UITableViewDelegate, UITableViewDat
         for var actS in activeShifts{
             if(actS.employeeId == FirebaseController.user.employeeId){
                 actS.messageOut = messageField.text!
-                actS.timeStempOut = Int(Date().timeIntervalSince1970)
+                actS.endDate = Date()
+                var shiftLog = ShiftLog()
+                shiftLog.shiftStatus = ShiftStatus.ClockedOut.rawValue
+                shiftLog.startDate = actS.startDate
+                shiftLog.endDate = actS.endDate
+                shiftLog.bossId = FirebaseController.user.employeeId
+                shiftLog.bossFirstName = FirebaseController.user.firstName
+                shiftLog.bossLastName = FirebaseController.user.lastName
+                shiftLog.bossSocialNumber = FirebaseController.user.socialSecurityNumber
+                shiftLog.date = actS.endDate
+                actS.logs = [shiftLog]
                 
                 self.messageField.text = ""
                 FirebaseController.clockOutShift(clockShift: actS)
@@ -38,7 +49,8 @@ class ClockViewController: UIViewController, UITableViewDelegate, UITableViewDat
         clockInBtn.isEnabled = false
         var clockedShift = ClockedShift()
         clockedShift.employeeId = FirebaseController.user.employeeId
-        clockedShift.timeStempIn = Int(Date().timeIntervalSince1970)
+        clockedShift.startDate = Date()
+
         clockedShift.messageIn = messageField.text!
         clockedShift.firstName = FirebaseController.user.firstName
         clockedShift.lastName = FirebaseController.user.lastName
@@ -57,6 +69,9 @@ class ClockViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.delegate = self
         tableView.dataSource = self
         
+        print("1111")
+        
+       var ssid =  getWifiSSid()
         messageField.layer.borderColor = UIColor(named: "primaryDark")?.cgColor
         messageField.layer.borderWidth = 1
         messageField.layer.cornerRadius = 5
@@ -68,12 +83,16 @@ class ClockViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     self.userIsActive = true
                 }
             })
+            
+              print("00000")
             if(self.userIsActive){
+                  print("222221")
                 self.clockOutBtn.isEnabled = true
                 self.clockInBtn.isEnabled = false
                 self.clockOutBtn.backgroundColor = UIColor(named: "primaryColor")
                 self.clockInBtn.backgroundColor = UIColor.lightGray
             }else{
+                  print("33333")
                 self.clockOutBtn.isEnabled = false
                 self.clockInBtn.isEnabled = true
                 self.clockOutBtn.backgroundColor = UIColor.lightGray
@@ -93,12 +112,27 @@ class ClockViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ClockTableViewCell
         cell.name.text = activeShifts[indexPath.row].firstName + " " + activeShifts[indexPath.row].lastName
-        cell.time.text = self.df.string(for: Date(timeIntervalSince1970: Double(activeShifts[indexPath.row].timeStempIn)))
-        
+        cell.time.text = self.df.string(for:activeShifts[indexPath.row].startDate)
         return cell
     }
     
+    func getWifiSSid() -> String{
+        var ssid:String = "rr"
+        print("hhhhhhhhhhhhh")
+        if let interfaces = CNCopySupportedInterfaces() as NSArray?{
+            print("if")
+            for interdace in interfaces{
+                print("for" + (interdace as! String) )
+                if let interfaceInfo = CNCopyCurrentNetworkInfo(interdace as! CFString) as NSDictionary?{
+                    ssid = (interfaceInfo[kCNNetworkInfoKeySSID as String] as? String)!
+                    var rr = interfaceInfo[kCNNetworkInfoKeyBSSID as String] as? String
+                    print("eee "+rr!)
+                    break
+                }
+            }
+        }
+        return ssid
+    }
 }

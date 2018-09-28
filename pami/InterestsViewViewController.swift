@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class InterestsViewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
@@ -18,6 +19,7 @@ class InterestsViewViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+  
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -28,7 +30,7 @@ class InterestsViewViewController: UIViewController, UITableViewDelegate, UITabl
             FirebaseController.getInterests().subscribe({ (event) in
                 
                 self.interests = event.element!.filter({ (inter) -> Bool in
-                    print(inter.employeeId)
+         
                     return inter.employeeId == FirebaseController.user.employeeId
                 })
                 self.tableView.reloadData()
@@ -89,4 +91,6 @@ class InterestsViewViewController: UIViewController, UITableViewDelegate, UITabl
            
         }
     }
+    
+
 }

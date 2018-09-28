@@ -42,17 +42,14 @@ class MyInfoViewController: UIViewController {
         
         userNameLabel.text = user.firstName + " " + user.lastName
         phone.text = user.phoneNumber
-        print(user.address)
         address.text = user.address
         socialNumber.text = String(user.socialSecurityNumber)
         email.text = user.email
         bank.text = user.accountNr + ", " + user.bankName
       
          _ = FirebaseController.getAcceptedShifts().subscribe { (event) in
-            print("jjjj")
             self.acceptedShifts =  event.element
             
-            print(self.acceptedShifts.count)
             
             self.totalWorkedHours.text  = self.getWorkedHours() + " timmar"
             self.totalSalary.text = self.getTotalSalary() + " Sek/tim"
